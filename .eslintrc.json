@@ -1,0 +1,60 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "greasemonkey": true,
+    "mocha": true
+  },
+  "globals": {
+    "saveAs": true,
+    "ZipImagePlayer": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8
+  },
+  "plugins": [
+    "compat"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "no-console": "off",
+
+    "comma-spacing": "error",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "arrow-spacing": "error",
+    "keyword-spacing": "error",
+    "space-infix-ops": "error",
+    "semi": [
+      "error",
+      "always"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "space-before-blocks": "error",
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "vue/max-attributes-per-line": [
+      2,
+      {
+        "singleline": 2,
+        "multiline": {
+          "max": 1,
+          "allowFirstLine": false
+        }
+      }
+    ],
+    "compat/compat": "warn"
+  }
+}
