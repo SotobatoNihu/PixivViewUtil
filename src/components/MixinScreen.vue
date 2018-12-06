@@ -1,6 +1,6 @@
 <template>
   <span :id="id" :style="screenStyle">
-    <img v-bind:src=" screenImg " :style="imgStyle"/>
+    <img :src=" screenImg " :style="imgStyle">
   </span>
 </template>
 <script>
@@ -12,44 +12,39 @@
         },
 
         data() {
-            return{
-                width:1000,
-                height:1000
-            }
-        },
-        updated() {
-            this.$nextTick(function () {
-            this.$store.commit('screenLoaded');
-            })
+            return {
+                width: 1000,
+                height: 1000,
+            };
         },
 
         computed: {
-            screenImg: function () {
-                return this.$store.state.pixivJson.body.urls.regular
+            screenImg: function() {
+                return this.$store.state.pixivJson.body.urls.regular;
             },
-            getSize: function () {
-                const store = this.$store;
-                const imgWidth = this.$store.state.pixivJson.body.width
-                const imgHeight = this.$store.state.pixivJson.body.height
-                const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth
-                const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight
-                const scale = wscale < hscale ? wscale : hscale
-                this.height = imgHeight * scale
-                this.width = imgWidth * scale
-                this.$store.commit('screenWidth', this.width);
-                this.$store.commit('screenHeight', this.height);
+            getSize: function() {
+                const imgWidth = this.$store.state.pixivJson.body.width;
+                const imgHeight = this.$store.state.pixivJson.body.height;
+                const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth;
+                const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight;
+                const scale = wscale < hscale ? wscale : hscale;
+                const _height = imgHeight * scale;
+                const _width = imgWidth * scale;
+                this.$store.commit('screenWidth', _width);
+                this.$store.commit('screenHeight', _height );
+                return { height: _height, width: _width };
             },
-            imgStyle: function () {
+            imgStyle: function() {
                 const size = this.getSize;
                 return {
                     width: 'auto',
                     height: 'auto',
                     pointerEvents: 'none',
-                    maxWidth: `${this.width}px`,
-                    maxHeight: `${this.height}px`,
-                }
+                    maxWidth: `${size.width}px`,
+                    maxHeight: `${size.height}px`,
+                };
             },
-            screenStyle: function () {
+            screenStyle: function() {
                 const size = this.getSize;
                 return {
                     border: '5px solid black',
@@ -57,8 +52,8 @@
                     position: 'relative',
                     width: 'auto',
                     height: 'auto',
-                    maxWidth: `${this.width}px`,
-                    maxHeight: `${this.height}px`,
+                    maxWidth: `${size.width}px`,
+                    maxHeight: `${size.height}px`,
                     float: 'left',
                     backgroundImage: `url(${this.screenImg})`,
                     backgroundSize: 'contain',
@@ -66,6 +61,11 @@
                     backgroundRepeat: 'no-repeat',
                 };
             },
+        },
+        updated() {
+            this.$nextTick(function() {
+                this.$store.commit('screenLoaded');
+            });
         },
     };
 </script>

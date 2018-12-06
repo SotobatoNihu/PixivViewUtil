@@ -1,15 +1,15 @@
 <template>
-    <div class="popup-comment">
-        <span v-if="isStamp"><img
-                :src="'https://s.pximg.net/common/images/stamp/generated-stamps/' + commentElem.stampId+'_s.jpg?20180605'"></span>
-        <span v-else v-html="getComment"/><br/>
-        <span class="popup-comment-info">{{ commentElem.userName}}<br/>{{commentElem.commentDate }}</span>
-    </div>
-    <span v-if="hasReply">reply</span>
+  <div class="popup-comment">
+    <span v-if="isStamp"><img
+      :src="'https://s.pximg.net/common/images/stamp/generated-stamps/' + commentElem.stampId+'_s.jpg?20180605'"></span>
+    <span v-else v-html="getComment"/><br>
+    <span class="popup-comment-info">{{ commentElem.userName }}<br>{{ commentElem.commentDate }}</span>
+  </div>
+  <span v-if="hasReply">reply</span>
 </template>
 
 <script>
-    import {commentElement, emoji} from '../lib/jsonInterface';
+    import { commentElement, emoji } from '../lib/jsonInterface';
 
     export default {
         name: "Comment",
@@ -18,22 +18,21 @@
         },
         data() {
             return {
-                emoji: emoji
-            }
+                emoji: emoji,
+            };
         },
-        methods: {},
         computed: {
             isStamp() {
                 if (this.commentElem.stampId !== null) {
-                    return true
+                    return true;
                 }
                 else return false;
             },
             hasReply() {
-                return this.commentElem.hasReplies
+                return this.commentElem.hasReplies;
             },
             getStampUrl() {
-                return `https://s.pximg.net/common/images/stamp/generated-stamps/${commentElem.stampId}_s.jpg?20180605`
+                return `https://s.pximg.net/common/images/stamp/generated-stamps/${commentElem.stampId}_s.jpg?20180605`;
             },
 
             replaceAll(str, beforeStr, afterStr) {
@@ -42,16 +41,16 @@
             },
 
             getComment() {
-                const comment = this.commentElem.comment
+                const comment = this.commentElem.comment;
                 if (comment.includes(')')) {
-                    let replaceComment = comment
-                    Object.keys(emoji).forEach(function (key) {
+                    let replaceComment = comment;
+                    Object.keys(emoji).forEach(function(key) {
                         const regexp = new RegExp(key, 'g');
-                        replaceComment = replaceComment.replace(regexp, `<span style="width: 14px; height: 14px; display: inline-block; background-image: url('https://s.pximg.net/common/images/emoji/${emoji[key]}.png'); background-size: contain;"></span>`)
+                        replaceComment = replaceComment.replace(regexp, `<span style="width: 14px; height: 14px; display: inline-block; background-image: url('https://s.pximg.net/common/images/emoji/${emoji[key]}.png'); background-size: contain;"></span>`);
                     });
-                    return replaceComment
+                    return replaceComment;
                 } else {
-                    return comment
+                    return comment;
                 }
             },
             getName() {
@@ -61,13 +60,12 @@
                 return this.commentElem.commentDate;
             },
 
-            getEmoji(comment) {
-            },
             commentInfo() {
-                return "hoge"
-            }
+                return "hoge";
+            },
         },
-    }
+        methods: {},
+    };
 </script>
 
 <style scoped>

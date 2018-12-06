@@ -127,6 +127,157 @@
       return component
     }
     /* style inject */
+    
+    /* style inject SSR */
+    
+
+    
+    var PixivIcons = __vue_normalize__(
+      { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+      __vue_inject_styles__,
+      __vue_script__,
+      __vue_scope_id__,
+      __vue_is_functional_template__,
+      __vue_module_identifier__,
+      undefined,
+      undefined
+    );
+
+  //
+
+  var script$1 = {
+      name: 'Caption',
+      components: {
+          PixivIcons,
+      },
+      props: {
+          id: {
+              default: 'popup-caption',
+              type: String,
+          },
+      },
+      data() {
+          return {
+              captionWidth: 100,
+          };
+      },
+
+      computed: {
+          tagArray() {
+              const json = this.$store.state.pixivJson;
+              return json.body.tags.tags;
+          },
+          captionHtml() {
+              const json = this.$store.state.pixivJson;
+              return json.body.description;
+          },
+          date() {
+              const json = this.$store.state.pixivJson;
+              const date = new Date(json.body.createDate);
+              return `upload:${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+          },
+          like() {
+              const json = this.$store.state.pixivJson;
+              return ` ${json.body.likeCount} `;
+          },
+          bookmark() {
+              const json = this.$store.state.pixivJson;
+              return ` ${json.body.bookmarkCount} `;
+          },
+          view() {
+              const json = this.$store.state.pixivJson;
+              return `${json.body.viewCount}`;
+          },
+
+          toggleCaption: function() {
+              this.$store.commit('toggleCaption');
+              return false;
+          },
+          captionStyle: function() {
+              return {
+                  width: `${this.$store.state.screen.width + 10}px`,
+                  height: 'auto',
+                  display: 'block',
+                  backgroundColor: 'white',
+                  border: '1px solid #000',
+              };
+          },
+
+      },
+      updated: function() {
+          this.$nextTick(function() {
+              this.$store.commit('captionHeight', this.$el.clientHeight);
+          });
+      },
+  };
+
+  /* script */
+              const __vue_script__$1 = script$1;
+              
+  /* template */
+  var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{style:(_vm.captionStyle),attrs:{"id":_vm.id}},[_c('div',{staticClass:"description",domProps:{"innerHTML":_vm._s(_vm.captionHtml)}}),_vm._v(" "),_c('div',{staticClass:"appendum"},[_c('div',{staticClass:"tags",staticStyle:{"display":"inline-block"}},_vm._l((_vm.tagArray),function(tagElem){return _c('span',[(tagElem.locked)?_c('span',[_vm._v("*")]):_vm._e(),_c('a',{attrs:{"href":"https://dic.pixiv.net/a/{{tagElem.tag}}"}},[_vm._v(_vm._s(tagElem.tag)),_c('span',{class:[ ( tagElem.romaji || tagElem.locked ) ? 'pixpedia-icon' : _vm.pixpedia-_vm.no-_vm.icon ]})])])})),_vm._v(" "),_c('div',{staticClass:"information"},[_c('div',{domProps:{"textContent":_vm._s(_vm.date)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'like'}}),_vm._v(" "),_c('span',{staticClass:"like",domProps:{"textContent":_vm._s(_vm.like)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'bookmark'}}),_vm._v(" "),_c('span',{attrs:{"id":"bookmark"},domProps:{"textContent":_vm._s(_vm.bookmark)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'view'}}),_vm._v(" "),_c('span',{attrs:{"id":"view"},domProps:{"textContent":_vm._s(_vm.view)}})],1)])])};
+  var __vue_staticRenderFns__$1 = [];
+
+    /* style */
+    const __vue_inject_styles__$1 = function (inject) {
+      if (!inject) return
+      inject("data-v-75b42063_0", { source: "\n.description[data-v-75b42063]{white-space:pre-line;z-index:10001;word-wrap:break-word;width:auto;height:70%;max-height:70%;overflow-y:scroll;scrollbar-width:thin\n}\n.appendum[data-v-75b42063]{width:auto;height:auto;max-height:30%;overflow-y:scroll\n}\n.information[data-v-75b42063]{background-color:#fff;font-size:x-small;width:auto;height:auto;max-height:20%;color:#999;line-height:1\n}\n.pixpedia-icon[data-v-75b42063]{display:inline-block;margin-left:2px;width:15px;height:14px;vertical-align:-2px;text-decoration:none;background:url(https://s.pximg.net/www/images/inline/pixpedia.png) no-repeat\n}\n.pixpedia-no-icon[data-v-75b42063]{display:inline-block;margin-left:2px;width:15px;height:14px;vertical-align:-2px;text-decoration:none;background:url(https://s.pximg.net/www/images/inline/pixpedia-no-item.png) no-repeat\n}", map: undefined, media: undefined });
+
+    };
+    /* scoped */
+    const __vue_scope_id__$1 = "data-v-75b42063";
+    /* module identifier */
+    const __vue_module_identifier__$1 = undefined;
+    /* functional template */
+    const __vue_is_functional_template__$1 = false;
+    /* component normalizer */
+    function __vue_normalize__$1(
+      template, style, script,
+      scope, functional, moduleIdentifier,
+      createInjector, createInjectorSSR
+    ) {
+      const component = (typeof script === 'function' ? script.options : script) || {};
+
+      // For security concerns, we use only base name in production mode.
+      component.__file = "Caption.vue";
+
+      if (!component.render) {
+        component.render = template.render;
+        component.staticRenderFns = template.staticRenderFns;
+        component._compiled = true;
+
+        if (functional) component.functional = true;
+      }
+
+      component._scopeId = scope;
+
+      {
+        let hook;
+        if (style) {
+          hook = function(context) {
+            style.call(this, createInjector(context));
+          };
+        }
+
+        if (hook !== undefined) {
+          if (component.functional) {
+            // register for functional component in vue file
+            const originalRender = component.render;
+            component.render = function renderWithStyleInjection(h, context) {
+              hook.call(context);
+              return originalRender(h, context)
+            };
+          } else {
+            // inject component registration as beforeCreate hook
+            const existing = component.beforeCreate;
+            component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+          }
+        }
+      }
+
+      return component
+    }
+    /* style inject */
     function __vue_create_injector__() {
       const head = document.head || document.getElementsByTagName('head')[0];
       const styles = __vue_create_injector__.styles || (__vue_create_injector__.styles = {});
@@ -198,106 +349,105 @@
     
 
     
-    var PixivIcons = __vue_normalize__(
-      { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
-      __vue_inject_styles__,
-      __vue_script__,
-      __vue_scope_id__,
-      __vue_is_functional_template__,
-      __vue_module_identifier__,
+    var Caption = __vue_normalize__$1(
+      { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
+      __vue_inject_styles__$1,
+      __vue_script__$1,
+      __vue_scope_id__$1,
+      __vue_is_functional_template__$1,
+      __vue_module_identifier__$1,
       __vue_create_injector__,
       undefined
     );
 
   //
-  var script$1 = {
-      name: 'Caption',
-      components: {
-          PixivIcons,
-      },
+  //
+  //
+  //
+  //
+
+  //const store = this.$store;
+  var script$2 = {
+      name: 'Screen',
       props: {
-          id: {
-              default: 'popup-caption',
-              type: String,
-          },
+          id: 'popup-screen',
       },
+
       data() {
           return {
-              captionWidth:100,
+              width: 1000,
+              height: 1000,
           };
-      },
-      updated: function () {
-          this.$nextTick(function () {
-              this.$store.commit('captionHeight',this.$el.clientHeight);
-          });
       },
 
       computed: {
-          tagArray() {
-              const json = this.$store.state.pixivJson;
-              return json.body.tags.tags;
+          screenImg: function() {
+              return this.$store.state.pixivJson.body.urls.regular;
           },
-          captionHtml() {
-              const json = this.$store.state.pixivJson;
-              return json.body.description;
+          getSize: function() {
+              const imgWidth = this.$store.state.pixivJson.body.width;
+              const imgHeight = this.$store.state.pixivJson.body.height;
+              const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth;
+              const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight;
+              const scale = wscale < hscale ? wscale : hscale;
+              const _height = imgHeight * scale;
+              const _width = imgWidth * scale;
+              this.$store.commit('screenWidth', _width);
+              this.$store.commit('screenHeight', _height );
+              return { height: _height, width: _width };
           },
-          date() {
-              const json = this.$store.state.pixivJson;
-              const date = new Date(json.body.createDate);
-              return `upload:${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
-          },
-          like() {
-              const json = this.$store.state.pixivJson;
-              return ` ${json.body.likeCount} `;
-          },
-          bookmark() {
-              const json = this.$store.state.pixivJson;
-              return ` ${json.body.bookmarkCount} `;
-          },
-          view() {
-              const json = this.$store.state.pixivJson;
-              return `${json.body.viewCount}`;
-          },
-
-          toggleCaption: function () {
-              console.log("toggleCaption");
-              this.$store.commit('toggleCaption');
-          },
-          captionStyle: function () {
-              const store=this.$store;
+          imgStyle: function() {
+              const size = this.getSize;
               return {
-                  width: `${this.$store.state.screen.width+10}px`,
+                  width: 'auto',
                   height: 'auto',
-                  display:'block',
-                  backgroundColor: 'white',
-                  border: '1px solid #000',
+                  pointerEvents: 'none',
+                  maxWidth: `${size.width}px`,
+                  maxHeight: `${size.height}px`,
               };
           },
-
+          screenStyle: function() {
+              const size = this.getSize;
+              return {
+                  border: '5px solid black',
+                  backgroundColor: '#111',
+                  position: 'relative',
+                  width: 'auto',
+                  height: 'auto',
+                  maxWidth: `${size.width}px`,
+                  maxHeight: `${size.height}px`,
+                  float: 'left',
+                  backgroundImage: `url(${this.screenImg})`,
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+              };
+          },
+      },
+      updated() {
+          this.$nextTick(function() {
+              this.$store.commit('screenLoaded');
+          });
       },
   };
 
   /* script */
-              const __vue_script__$1 = script$1;
+              const __vue_script__$2 = script$2;
               
   /* template */
-  var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{style:(_vm.captionStyle),attrs:{"id":_vm.id}},[_c('div',{staticClass:"description",domProps:{"innerHTML":_vm._s(_vm.captionHtml)}}),_vm._v(" "),_c('div',{staticClass:"appendum"},[_c('div',{staticClass:"tags",staticStyle:{"display":"inline-block"}},_vm._l((_vm.tagArray),function(tagElem){return _c('span',[(tagElem.locked)?_c('span',[_vm._v("*")]):_vm._e(),_c('a',{attrs:{"href":"https://dic.pixiv.net/a/{{tagElem.tag}}"}},[_vm._v(_vm._s(tagElem.tag)),_c('span',{class:[ ( tagElem.romaji || tagElem.locked ) ? 'pixpedia-icon' : _vm.pixpedia-_vm.no-_vm.icon ]})])])})),_vm._v(" "),_c('div',{staticClass:"information"},[_c('div',{domProps:{"textContent":_vm._s(_vm.date)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'like'}}),_vm._v(" "),_c('span',{staticClass:"like",domProps:{"textContent":_vm._s(_vm.like)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'bookmark'}}),_vm._v(" "),_c('span',{attrs:{"id":"bookmark"},domProps:{"textContent":_vm._s(_vm.bookmark)}}),_vm._v(" "),_c('PixivIcons',{attrs:{"icon":'view'}}),_vm._v(" "),_c('span',{attrs:{"id":"view"},domProps:{"textContent":_vm._s(_vm.view)}})],1)])])};
-  var __vue_staticRenderFns__$1 = [];
+  var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle),attrs:{"id":_vm.id}},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
+  var __vue_staticRenderFns__$2 = [];
 
     /* style */
-    const __vue_inject_styles__$1 = function (inject) {
-      if (!inject) return
-      inject("data-v-b3f734cc_0", { source: "\n.description[data-v-b3f734cc]{white-space:pre-line;z-index:10001;word-wrap:break-word;width:auto;height:70%;max-height:70%;overflow-y:scroll;scrollbar-width:thin\n}\n.appendum[data-v-b3f734cc]{width:auto;height:auto;max-height:30%;overflow-y:scroll\n}\n.information[data-v-b3f734cc]{background-color:#fff;font-size:x-small;width:auto;height:auto;max-height:20%;color:#999;line-height:1\n}\n.pixpedia-icon[data-v-b3f734cc]{display:inline-block;margin-left:2px;width:15px;height:14px;vertical-align:-2px;text-decoration:none;background:url(https://s.pximg.net/www/images/inline/pixpedia.png) no-repeat\n}\n.pixpedia-no-icon[data-v-b3f734cc]{display:inline-block;margin-left:2px;width:15px;height:14px;vertical-align:-2px;text-decoration:none;background:url(https://s.pximg.net/www/images/inline/pixpedia-no-item.png) no-repeat\n}", map: undefined, media: undefined });
-
-    };
+    const __vue_inject_styles__$2 = undefined;
     /* scoped */
-    const __vue_scope_id__$1 = "data-v-b3f734cc";
+    const __vue_scope_id__$2 = "data-v-4b65d97c";
     /* module identifier */
-    const __vue_module_identifier__$1 = undefined;
+    const __vue_module_identifier__$2 = undefined;
     /* functional template */
-    const __vue_is_functional_template__$1 = false;
+    const __vue_is_functional_template__$2 = false;
     /* component normalizer */
-    function __vue_normalize__$1(
+    function __vue_normalize__$2(
       template, style, script,
       scope, functional, moduleIdentifier,
       createInjector, createInjectorSSR
@@ -305,7 +455,238 @@
       const component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "Caption.vue";
+      component.__file = "MixinScreen.vue";
+
+      if (!component.render) {
+        component.render = template.render;
+        component.staticRenderFns = template.staticRenderFns;
+        component._compiled = true;
+
+        if (functional) component.functional = true;
+      }
+
+      component._scopeId = scope;
+
+      return component
+    }
+    /* style inject */
+    
+    /* style inject SSR */
+    
+
+    
+    var Screen = __vue_normalize__$2(
+      { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
+      __vue_inject_styles__$2,
+      __vue_script__$2,
+      __vue_scope_id__$2,
+      __vue_is_functional_template__$2,
+      __vue_module_identifier__$2,
+      undefined,
+      undefined
+    );
+
+  //
+  var script$3 = {
+      name: "Illust",
+      mixins: [Screen],
+  };
+
+  /* script */
+              const __vue_script__$3 = script$3;
+              
+  /* template */
+  var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle)},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
+  var __vue_staticRenderFns__$3 = [];
+
+    /* style */
+    const __vue_inject_styles__$3 = undefined;
+    /* scoped */
+    const __vue_scope_id__$3 = "data-v-7285e8c9";
+    /* module identifier */
+    const __vue_module_identifier__$3 = undefined;
+    /* functional template */
+    const __vue_is_functional_template__$3 = false;
+    /* component normalizer */
+    function __vue_normalize__$3(
+      template, style, script,
+      scope, functional, moduleIdentifier,
+      createInjector, createInjectorSSR
+    ) {
+      const component = (typeof script === 'function' ? script.options : script) || {};
+
+      // For security concerns, we use only base name in production mode.
+      component.__file = "IllustScreen.vue";
+
+      if (!component.render) {
+        component.render = template.render;
+        component.staticRenderFns = template.staticRenderFns;
+        component._compiled = true;
+
+        if (functional) component.functional = true;
+      }
+
+      component._scopeId = scope;
+
+      return component
+    }
+    /* style inject */
+    
+    /* style inject SSR */
+    
+
+    
+    var Illust = __vue_normalize__$3(
+      { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
+      __vue_inject_styles__$3,
+      __vue_script__$3,
+      __vue_scope_id__$3,
+      __vue_is_functional_template__$3,
+      __vue_module_identifier__$3,
+      undefined,
+      undefined
+    );
+
+  //
+
+
+  var script$4 = {
+      name: "Manga",
+      mixins: [Screen],
+      data() {
+          return {
+              width: 1000,
+              height: 1000,
+              scrollWidth: 0,
+              active: false,
+              onmouse: false,
+          };
+      },
+      computed: {
+
+          ImageUrls: function() {
+              let imgElemArray = [];
+              const json = this.$store.state.pixivJson;
+              const firstPageURL = json.body.urls.regular.replace(/\/...x...\//, '/600x600/');
+              const pageNum = json.body.pageCount;
+              for (let i = 0; i < pageNum; i++) {
+                  const url = firstPageURL.replace('p0', 'p' + i);
+                  imgElemArray.push(url);
+              }
+              return imgElemArray;
+          },
+
+          getHeight: function() {
+              const store = this.$store;
+              const height = window.innerHeight * this.$store.state.screen.scale;
+              store.commit('screenHeight', height);
+              return height;
+          },
+          getWidth: function() {
+              const store = this.$store;
+              const width = window.innerWidth * this.$store.state.screen.scale;
+              store.commit('screenWidth', width);
+              return width;
+          },
+
+          getSize: function() {
+              this.height = window.innerHeight * this.$store.state.screen.scale;
+              this.width = window.innerWidth * this.$store.state.screen.scale;
+              this.$store.commit('screenWidth', this.width);
+              this.$store.commit('screenHeight', this.height);
+              return { width: this.width, height: this.height };
+          },
+
+          mangaStyle: function() {
+              const size = this.getSize;
+              return {
+                  border: '5px solid black',
+                  backgroundColor: '#111',
+                  position: 'relative',
+                  whiteSpace: 'nowrap',
+                  width: '100%',
+                  height: 'auto',
+                  maxWidth: `${size.width}px`,
+                  maxHeight: `${size.height + 17}px`,
+                  float: 'left',
+                  overflow: 'hidden',
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+              };
+          },
+          thumbStyle: function() {
+              return {
+                  left: `${this.scrollWidth}px`,
+              };
+          },
+      },
+      watch: {
+          scrollWidth: function() {
+              this.$refs.scrollable.scrollLeft = this.scrollWidth;
+          },
+      },
+      updated: {},
+      mounted() {
+          const store = this.$store;
+          const wrapper = this.$refs.wrapper;
+          let onmouse = this.onmouse;
+          wrapper.addEventListener('scroll', function(event) {
+              store.state.screen.dragging = true;
+              return false;
+          });
+          wrapper.addEventListener('mouseover', function(event) {
+              onmouse = true;
+          });
+          wrapper.addEventListener('mouseout', function(event) {
+              onmouse = false;
+          });
+          wrapper.addEventListener('mousemove', function(event) {
+              onmouse = true;
+          });
+          wrapper.addEventListener('wheel', function(event) {
+              onmouse = true;
+          });
+          document.addEventListener('wheel', function(event) {
+              if (event.target.id === 'manga__main' || onmouse) {
+                  event.preventDefault();
+                  const scrollValue = event.deltaY > 0 ? 100 : -100;
+                  wrapper.scrollBy(scrollValue, 0);
+              }
+          });
+      },
+      methods: {},
+  };
+
+  /* script */
+              const __vue_script__$4 = script$4;
+              
+  /* template */
+  var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.mangaStyle),attrs:{"id":_vm.id}},[_c('div',{ref:"wrapper",staticClass:"scroll_wrapper"},[_c('div',{ref:"scrollable",attrs:{"id":"manga__main"}},_vm._l((_vm.ImageUrls),function(imgUrl){return _c('img',{key:_vm.number,style:(_vm.imgStyle),attrs:{"src":imgUrl}})}))])])};
+  var __vue_staticRenderFns__$4 = [];
+
+    /* style */
+    const __vue_inject_styles__$4 = function (inject) {
+      if (!inject) return
+      inject("data-v-54943c6f_0", { source: "\n.scroll_wrapper[data-v-54943c6f]{height:calc(100% - 17px);width:100%;overflow-x:scroll;-webkit-overflow-scrolling:touch\n}", map: undefined, media: undefined });
+
+    };
+    /* scoped */
+    const __vue_scope_id__$4 = "data-v-54943c6f";
+    /* module identifier */
+    const __vue_module_identifier__$4 = undefined;
+    /* functional template */
+    const __vue_is_functional_template__$4 = false;
+    /* component normalizer */
+    function __vue_normalize__$4(
+      template, style, script,
+      scope, functional, moduleIdentifier,
+      createInjector, createInjectorSSR
+    ) {
+      const component = (typeof script === 'function' ? script.options : script) || {};
+
+      // For security concerns, we use only base name in production mode.
+      component.__file = "MangaScreen.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -415,69 +796,554 @@
     
 
     
-    var Caption = __vue_normalize__$1(
-      { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
-      __vue_inject_styles__$1,
-      __vue_script__$1,
-      __vue_scope_id__$1,
-      __vue_is_functional_template__$1,
-      __vue_module_identifier__$1,
+    var Manga = __vue_normalize__$4(
+      { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
+      __vue_inject_styles__$4,
+      __vue_script__$4,
+      __vue_scope_id__$4,
+      __vue_is_functional_template__$4,
+      __vue_module_identifier__$4,
       __vue_create_injector__$1,
       undefined
     );
 
-  //
-  //
-  //
-  //
+  var ZipImagePlayer = (function() {
+
+    // Required for iOS <6, where Blob URLs are not available. This is slow...
+    // Source: https://gist.github.com/jonleighton/958841
+    function base64ArrayBuffer(arrayBuffer, off, byteLength) {
+      let base64    = '';
+      const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+      const bytes         = new Uint8Array(arrayBuffer);
+      const byteRemainder = byteLength % 3;
+      const mainLength    = off + byteLength - byteRemainder;
+      let a, b, c, d;
+      let chunk;
+      // Main loop deals with bytes in chunks of 3
+      for (let i = off; i < mainLength; i = i + 3) {
+        // Combine the three bytes into a single integer
+        chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+
+        // Use bitmasks to extract 6-bit segments from the triplet
+        a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
+        b = (chunk & 258048)   >> 12; // 258048   = (2^6 - 1) << 12
+        c = (chunk & 4032)     >>  6; // 4032     = (2^6 - 1) << 6
+        d = chunk & 63;               // 63       = 2^6 - 1
+
+        // Convert the raw binary segments to the appropriate ASCII encoding
+        base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
+      }
+
+      // Deal with the remaining bytes and padding
+      if (byteRemainder == 1) {
+        chunk = bytes[mainLength];
+
+        a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
+
+        // Set the 4 least significant bits to zero
+        b = (chunk & 3)   << 4; // 3   = 2^2 - 1
+
+        base64 += `${encodings[a] + encodings[b]}==`;
+      } else if (byteRemainder == 2) {
+        chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
+
+        a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
+        b = (chunk & 1008)  >>  4; // 1008  = (2^6 - 1) << 4
+
+        // Set the 2 least significant bits to zero
+        c = (chunk & 15)    <<  2; // 15    = 2^4 - 1
+
+        base64 += `${encodings[a] + encodings[b] + encodings[c]}=`;
+      }
+
+      return base64;
+    }
+
+    class ZipImagePlayer {
+      constructor(options) {
+        this.op = options;
+        this._rescale = false;
+        this._URL = (window.URL || window.webkitURL || window.MozURL
+                || window.MSURL);
+        this._Blob = (window.Blob || window.WebKitBlob || window.MozBlob
+                || window.MSBlob);
+        this._BlobBuilder = (window.BlobBuilder || window.WebKitBlobBuilder
+                || window.MozBlobBuilder || window.MSBlobBuilder);
+        this._Uint8Array = (window.Uint8Array || window.WebKitUint8Array
+                || window.MozUint8Array || window.MSUint8Array);
+        this._DataView = (window.DataView || window.WebKitDataView
+                || window.MozDataView || window.MSDataView);
+        this._ArrayBuffer = (window.ArrayBuffer || window.WebKitArrayBuffer
+                || window.MozArrayBuffer || window.MSArrayBuffer);
+        this._maxLoadAhead = 0;
+        if (!this._URL) {
+          this._debugLog("No URL support! Will use slower data: URLs.");
+          // Throttle loading to avoid making playback stalling completely while
+          // loading images...
+          this._maxLoadAhead = 10;
+        }
+        if (!this._Blob) {
+          this._error("No Blob support");
+        }
+        if (!this._Uint8Array) {
+          this._error("No Uint8Array support");
+        }
+        if (!this._DataView) {
+          this._error("No DataView support");
+        }
+        if (!this._ArrayBuffer) {
+          this._error("No ArrayBuffer support");
+        }
+        this._isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+        this._loadingState = 0;
+        this._dead = false;
+        this._context = options.canvas.getContext("2d");
+        this._files = {};
+        this._frameCount = this.op.metadata.frames.length;
+        this._trailerBytes = 30000;
+        this._failed = false;
+        this._debugLog(`Frame count: ${this._frameCount}`);
+        this._frame = 0;
+        this._loadFrame = 0;
+        this._frameImages = [];
+        this._paused = false;
+        this._loadTimer = null;
+        this._startLoad();
+        if (this.op.autoStart) {
+          this.play();
+        }
+        else {
+          this._paused = true;
+        }
+
+      }
+      _mkerr(msg) {
+        return () => {
+          this._error(msg);
+        };
+      }
+      _error(msg) {
+        this._failed = true;
+        throw Error(`ZipImagePlayer error: ${msg}`);
+      }
+      _debugLog(msg) {
+        if (this.op.debug) {
+          console.log(msg);
+        }
+      }
+      _load(offset, length, callback) {
+        // Unfortunately JQuery doesn't support ArrayBuffer XHR
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener("load", () => {
+          if (this._dead) {
+            return;
+          }
+          this._debugLog(`Load: ${offset} ${length} status=${xhr.status}`);
+          if (xhr.status == 200) {
+            this._debugLog("Range disabled or unsupported, complete load");
+            offset = 0;
+            length = xhr.response.byteLength;
+            this._len = length;
+            this._buf = xhr.response;
+            this._bytes = new this._Uint8Array(this._buf);
+          } else {
+            if (xhr.status != 206) {
+              this._error(`Unexpected HTTP status ${xhr.status}`);
+            }
+            if (xhr.response.byteLength != length) {
+              this._error(`Unexpected length ${xhr.response.byteLength} (expected ${length})`);
+            }
+            this._bytes.set(new this._Uint8Array(xhr.response), offset);
+          }
+          if (callback) {
+            callback.apply(this, [offset, length]);
+          }
+        }, false);
+        xhr.addEventListener("error", this._mkerr("Fetch failed"), false);
+        xhr.open("GET", this.op.source);
+        xhr.responseType = "arraybuffer";
+        if (offset != null && length != null) {
+          const end = offset + length;
+          xhr.setRequestHeader("Range", `bytes=${offset}-${(end - 1)}`);
+          if (this._isSafari) {
+            // Range request caching is broken in Safari
+            // https://bugs.webkit.org/show_bug.cgi?id=82672
+            xhr.setRequestHeader("Cache-control", "no-cache");
+            xhr.setRequestHeader("If-None-Match", Math.random().toString());
+          }
+        }
+        /*this._debugLog("Load: " + offset + " " + length);*/
+        xhr.send();
+      }
+      _startLoad() {
+        if (!this.op.source) {
+          // Unpacked mode (individiual frame URLs) - just load the frames.
+          this._loadNextFrame();
+          return;
+        }
+        fetch(this.op.source, {
+          method: "HEAD",
+        }).then(resp => {
+          if (this._dead) {
+            return;
+          }
+          this._pHead = 0;
+          this._pNextHead = 0;
+          this._pFetch = 0;
+          const len = parseInt(resp.headers.get("Content-Length"));
+          if (!len) {
+            this._debugLog("HEAD request failed: invalid file length.");
+            this._debugLog("Falling back to full file mode.");
+            this._load(null, null, (off, len) => {
+              this._pTail = 0;
+              this._pHead = len;
+              this._findCentralDirectory();
+            });
+            return;
+          }
+          this._debugLog(`Len: ${len}`);
+          this._len = len;
+          this._buf = new this._ArrayBuffer(len);
+          this._bytes = new this._Uint8Array(this._buf);
+          let off = len - this._trailerBytes;
+          if (off < 0) {
+            off = 0;
+          }
+          this._pTail = len;
+          this._load(off, len - off, (off) => {
+            this._pTail = off;
+            this._findCentralDirectory();
+          });
+
+        }).catch(this._mkerr("Length fetch failed"));
+      }
+      _findCentralDirectory() {
+        // No support for ZIP file comment
+        const dv = new this._DataView(this._buf, this._len - 22, 22);
+        if (dv.getUint32(0, true) != 0x06054b50) {
+          this._error("End of Central Directory signature not found");
+        }
+        const cd_count = dv.getUint16(10, true);
+        const cd_size = dv.getUint32(12, true);
+        const cd_off = dv.getUint32(16, true);
+        if (cd_off < this._pTail) {
+          this._load(cd_off, this._pTail - cd_off, () => {
+            this._pTail = cd_off;
+            this._readCentralDirectory(cd_off, cd_size, cd_count);
+          });
+        } else {
+          this._readCentralDirectory(cd_off, cd_size, cd_count);
+        }
+      }
+      _readCentralDirectory(offset, size, count) {
+        const dv = new this._DataView(this._buf, offset, size);
+        let p = 0;
+        for (let i = 0; i < count; i++ ) {
+          if (dv.getUint32(p, true) != 0x02014b50) {
+            this._error("Invalid Central Directory signature");
+          }
+          const compMethod = dv.getUint16(p + 10, true);
+          const uncompSize = dv.getUint32(p + 24, true);
+          const nameLen = dv.getUint16(p + 28, true);
+          const extraLen = dv.getUint16(p + 30, true);
+          const cmtLen = dv.getUint16(p + 32, true);
+          const off = dv.getUint32(p + 42, true);
+          if (compMethod != 0) {
+            this._error("Unsupported compression method");
+          }
+          p += 46;
+          const nameView = new this._Uint8Array(this._buf, offset + p, nameLen);
+          let name = "";
+          for (let j = 0; j < nameLen; j++) {
+            name += String.fromCharCode(nameView[j]);
+          }
+          p += nameLen + extraLen + cmtLen;
+          /*this._debugLog("File: " + name + " (" + uncompSize +
+                               " bytes @ " + off + ")");*/
+          this._files[name] = { off: off, len: uncompSize };
+        }
+        // Two outstanding fetches at any given time.
+        // Note: the implementation does not support more than two.
+        if (this._pHead >= this._pTail) {
+          this._pHead = this._len;
+          this._loadNextFrame();
+        } else {
+          this._loadNextChunk();
+          this._loadNextChunk();
+        }
+      }
+      _loadNextChunk() {
+        if (this._pFetch >= this._pTail) {
+          return;
+        }
+        const off = this._pFetch;
+        let len = this.op.chunkSize;
+        if (this._pFetch + len > this._pTail) {
+          len = this._pTail - this._pFetch;
+        }
+        this._pFetch += len;
+        this._load(off, len, () => {
+          if (off == this._pHead) {
+            if (this._pNextHead) {
+              this._pHead = this._pNextHead;
+              this._pNextHead = 0;
+            } else {
+              this._pHead = off + len;
+            }
+            if (this._pHead >= this._pTail) {
+              this._pHead = this._len;
+            }
+            /*this._debugLog("New pHead: " + this._pHead);*/
+            if (!this._loadTimer) {
+              this._loadNextFrame();
+            }
+          } else {
+            this._pNextHead = off + len;
+          }
+          this._loadNextChunk();
+        });
+      }
+      _fileDataStart(offset) {
+        const dv = new DataView(this._buf, offset, 30);
+        const nameLen = dv.getUint16(26, true);
+        const extraLen = dv.getUint16(28, true);
+        return offset + 30 + nameLen + extraLen;
+      }
+      _isFileAvailable(name) {
+        const info = this._files[name];
+        if (!info) {
+          this._error(`File ${name} not found in ZIP`);
+        }
+        if (this._pHead < (info.off + 30)) {
+          return false;
+        }
+        return this._pHead >= (this._fileDataStart(info.off) + info.len);
+      }
+      _loadNextFrame() {
+        if (this._dead) {
+          return;
+        }
+        const frame = this._loadFrame;
+        if (frame >= this._frameCount) {
+          return;
+        }
+        const meta = this.op.metadata.frames[frame];
+        if (!this.op.source) {
+          // Unpacked mode (individiual frame URLs)
+          this._loadFrame += 1;
+          this._loadImage(frame, meta.file, false);
+          return;
+        }
+        if (!this._isFileAvailable(meta.file)) {
+          return;
+        }
+        this._loadFrame += 1;
+        const off = this._fileDataStart(this._files[meta.file].off);
+        const end = off + this._files[meta.file].len;
+        let url;
+        const mime_type = this.op.metadata.mime_type || "image/png";
+        if (this._URL) {
+          let slice;
+          if (!this._buf.slice) {
+            slice = new this._ArrayBuffer(this._files[meta.file].len);
+            const view = new this._Uint8Array(slice);
+            view.set(this._bytes.subarray(off, end));
+          } else {
+            slice = this._buf.slice(off, end);
+          }
+          let blob;
+          try {
+            blob = new this._Blob([slice], { type: mime_type });
+          }
+          catch (err) {
+            this._debugLog(`${"Blob constructor failed. Trying BlobBuilder..."
+                               + " ("}${err.message})`);
+            const bb = new this._BlobBuilder();
+            bb.append(slice);
+            blob = bb.getBlob();
+          }
+          /*_this._debugLog("Loading " + meta.file + " to frame " + frame);*/
+          url = this._URL.createObjectURL(blob);
+          this._loadImage(frame, url, true);
+        } else {
+          url = (`data:${mime_type};base64,${
+        base64ArrayBuffer(this._buf, off, end - off)}`);
+          this._loadImage(frame, url, false);
+        }
+      }
+      _loadImage(frame, url, isBlob) {
+        const image = new Image();
+        const meta = this.op.metadata.frames[frame];
+        image.addEventListener('load', () => {
+          this._debugLog(`Loaded ${meta.file} to frame ${frame}`);
+          if (isBlob) {
+            this._URL.revokeObjectURL(url);
+          }
+          if (this._dead) {
+            return;
+          }
+          this._frameImages[frame] = image;
+          if (this._loadingState == 0) {
+            this._displayFrame.apply(this);
+          }
+          if (frame >= (this._frameCount - 1)) {
+            this._setLoadingState(2);
+            this._buf = null;
+            this._bytes = null;
+          } else {
+            if (!this._maxLoadAhead ||
+                        (frame - this._frame) < this._maxLoadAhead) {
+              this._loadNextFrame();
+            } else if (!this._loadTimer) {
+              this._loadTimer = setTimeout(() => {
+                this._loadTimer = null;
+                this._loadNextFrame();
+              }, 200);
+            }
+          }
+        });
+        image.src = url;
+      }
+      _setLoadingState(state) {
+        if (this._loadingState != state) {
+          this._loadingState = state;
+        }
+      }
+      _displayFrame() {
+        if (this._dead) {
+          return;
+        }
+        const meta = this.op.metadata.frames[this._frame];
+        this._debugLog(`Displaying frame: ${this._frame} ${meta.file}`);
+        const image = this._frameImages[this._frame];
+        if (!image) {
+          this._debugLog("Image not available!");
+          this._setLoadingState(0);
+          return;
+        }
+        if (this._loadingState != 2) {
+          this._setLoadingState(1);
+        }
+        if (this.op.autoscale) {
+          if (!this._rescale) {
+              this._context.canvas.width = this.op.width;
+              this._context.canvas.height = this.op.height;
+              const scale = this.op.width / image.width;
+              this._context.scale(scale, scale);
+            this._rescale = true;
+          }
+        } else  if (this.op.autosize) {
+          if (this._context.canvas.width != image.width || this._context.canvas.height != image.height) {
+            this._context.canvas.width = image.width;
+            this._context.canvas.height = image.height;
+          }
+        }
+        this._context.clearRect(0, 0, this.op.canvas.width,
+          this.op.canvas.height);
+        this._context.drawImage(image, 0, 0);
+        if (!this._paused) {
+          this._timer = setTimeout(() => {
+            this._timer = null;
+            this._nextFrame.apply(this);
+          }, meta.delay);
+        }
+      }
+      _nextFrame() {
+        if (this._frame >= (this._frameCount - 1)) {
+          if (this.op.loop) {
+            this._frame = 0;
+          } else {
+            this.pause();
+            return;
+          }
+        } else {
+          this._frame += 1;
+        }
+        this._displayFrame();
+      }
+      play() {
+        if (this._dead) {
+          return;
+        }
+        if (this._paused) {
+          this._paused = false;
+          this._displayFrame();
+        }
+      }
+      pause() {
+        if (this._dead) {
+          return;
+        }
+        if (!this._paused) {
+          if (this._timer) {
+            clearTimeout(this._timer);
+          }
+          this._paused = true;
+        }
+      }
+      rewind() {
+        if (this._dead) {
+          return;
+        }
+        this._frame = 0;
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        this._displayFrame();
+      }
+      stop() {
+        this._debugLog("Stopped!");
+        this._dead = true;
+        if (this._timer) {
+          clearTimeout(this._timer);
+        }
+        if (this._loadTimer) {
+          clearTimeout(this._loadTimer);
+        }
+        this._frameImages = null;
+        this._buf = null;
+        this._bytes = null;
+      }
+      getCurrentFrame() {
+        return this._frame;
+      }
+      getLoadedFrames() {
+        return this._frameImages.length;
+      }
+      getFrameCount() {
+        return this._frameCount;
+      }
+      hasError() {
+        return this._failed;
+      }
+    }
+
+    return ZipImagePlayer;
+
+  }());
+
   //
 
-  //const store = this.$store;
-  var script$2 = {
-      name: 'Screen',
+  var script$5 = {
+      name: 'Ugoira',
+      mixins: [Screen],
       props: {
           id: 'popup-screen',
+          visible: false,
       },
-
       data() {
           return {
-              width:1000,
-              height:1000
-          }
+              isVisible: this.visible,
+              width: 600,
+              height: 600,
+          };
       },
-      updated() {
-          this.$nextTick(function () {
-          this.$store.commit('screenLoaded');
-          });
-      },
-
       computed: {
-          screenImg: function () {
-              return this.$store.state.pixivJson.body.urls.regular
+          /*
+          screenImg: function() {
+              return this.$store.state.pixivJson.body.urls.regular;
           },
-          getSize: function () {
-              const store = this.$store;
-              const imgWidth = this.$store.state.pixivJson.body.width;
-              const imgHeight = this.$store.state.pixivJson.body.height;
-              const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth;
-              const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight;
-              const scale = wscale < hscale ? wscale : hscale;
-              this.height = imgHeight * scale;
-              this.width = imgWidth * scale;
-              this.$store.commit('screenWidth', this.width);
-              this.$store.commit('screenHeight', this.height);
-          },
-          imgStyle: function () {
-              const size = this.getSize;
-              return {
-                  width: 'auto',
-                  height: 'auto',
-                  pointerEvents: 'none',
-                  maxWidth: `${this.width}px`,
-                  maxHeight: `${this.height}px`,
-              }
-          },
-          screenStyle: function () {
+          screenStyle: function() {
               const size = this.getSize;
               return {
                   border: '5px solid black',
@@ -485,8 +1351,8 @@
                   position: 'relative',
                   width: 'auto',
                   height: 'auto',
-                  maxWidth: `${this.width}px`,
-                  maxHeight: `${this.height}px`,
+                  maxWidth: `${size.width}px`,
+                  maxHeight: `${size.height}px`,
                   float: 'left',
                   backgroundImage: `url(${this.screenImg})`,
                   backgroundSize: 'contain',
@@ -494,26 +1360,86 @@
                   backgroundRepeat: 'no-repeat',
               };
           },
+          getSize: function() {
+              const imgWidth = this.$store.state.pixivJson.body.width;
+              const imgHeight = this.$store.state.pixivJson.body.height;
+              const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth;
+              const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight;
+              const scale = wscale < hscale ? wscale : hscale;
+              const _height = imgHeight * scale;
+              const _width = imgWidth * scale;
+              this.$store.commit('screenWidth', _width);
+              this.$store.commit('screenHeight', _height );
+              return { height: _height, width: _width };
+          },
+          */
+      },
+      watch: {
+          visible: function() {
+              // console.log(`visible?${ this.visible}`)
+              if (this.visible) {
+                  console.log("ugoira start!");
+                  const size = this.getSize;
+                  const screen = document.getElementById('popup-ugoira');
+                  if (screen) {
+                      screen.innerText = '';
+                      this.canvas = document.createElement('canvas');
+                      this.canvas.id = 'ugoira-canvas';
+                      this.canvas.style.pointerEvents = 'none';
+                      screen.appendChild(this.canvas);
+                  }
+                  const options = {
+                      canvas: this.canvas,
+                      metadata: this.$store.state.ugoiraJson.body,
+                      source: this.$store.state.ugoiraJson.body.src,
+                      mime_type: this.$store.state.ugoiraJson.body.mime_type,
+                      chunkSize: 10000,
+                      loop: true,
+                      autoStart: false,
+                      //autosize: true,
+                      autoscale: true,
+                      width: size.width,
+                      height: size.height,
+                  };
+                  //const canvas =this.$refs.canvasElm
+                  //this.player = new ZipImagePlayer(options);
+                  //this.player.play()
+                  this.player = new ZipImagePlayer(options);
+                  const player = this.player;
+                  player.play();
+
+              } else {
+                  if (this.player) {
+                      this.player.stop();
+                      //this.player=null
+                  }
+                  this.canvas = null;
+              }
+          },
       },
   };
 
   /* script */
-              const __vue_script__$2 = script$2;
+              const __vue_script__$5 = script$5;
               
   /* template */
-  var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle),attrs:{"id":_vm.id}},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
-  var __vue_staticRenderFns__$2 = [];
+  var __vue_render__$5 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle),attrs:{"id":"popup-ugoira"}},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
+  var __vue_staticRenderFns__$5 = [];
 
     /* style */
-    const __vue_inject_styles__$2 = undefined;
+    const __vue_inject_styles__$5 = function (inject) {
+      if (!inject) return
+      inject("data-v-6d211b59_0", { source: "\n#ugoira-canvas[data-v-6d211b59]{width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0\n}", map: undefined, media: undefined });
+
+    };
     /* scoped */
-    const __vue_scope_id__$2 = "data-v-2ed83920";
+    const __vue_scope_id__$5 = "data-v-6d211b59";
     /* module identifier */
-    const __vue_module_identifier__$2 = undefined;
+    const __vue_module_identifier__$5 = undefined;
     /* functional template */
-    const __vue_is_functional_template__$2 = false;
+    const __vue_is_functional_template__$5 = false;
     /* component normalizer */
-    function __vue_normalize__$2(
+    function __vue_normalize__$5(
       template, style, script,
       scope, functional, moduleIdentifier,
       createInjector, createInjectorSSR
@@ -521,7 +1447,7 @@
       const component = (typeof script === 'function' ? script.options : script) || {};
 
       // For security concerns, we use only base name in production mode.
-      component.__file = "MixinScreen.vue";
+      component.__file = "UgoiraScreen.vue";
 
       if (!component.render) {
         component.render = template.render;
@@ -532,6 +1458,30 @@
       }
 
       component._scopeId = scope;
+
+      {
+        let hook;
+        if (style) {
+          hook = function(context) {
+            style.call(this, createInjector(context));
+          };
+        }
+
+        if (hook !== undefined) {
+          if (component.functional) {
+            // register for functional component in vue file
+            const originalRender = component.render;
+            component.render = function renderWithStyleInjection(h, context) {
+              hook.call(context);
+              return originalRender(h, context)
+            };
+          } else {
+            // inject component registration as beforeCreate hook
+            const existing = component.beforeCreate;
+            component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+          }
+        }
+      }
 
       return component
     }
@@ -607,485 +1557,16 @@
     
 
     
-    var Screen = __vue_normalize__$2(
-      { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
-      __vue_inject_styles__$2,
-      __vue_script__$2,
-      __vue_scope_id__$2,
-      __vue_is_functional_template__$2,
-      __vue_module_identifier__$2,
+    var Ugoira = __vue_normalize__$5(
+      { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+      __vue_inject_styles__$5,
+      __vue_script__$5,
+      __vue_scope_id__$5,
+      __vue_is_functional_template__$5,
+      __vue_module_identifier__$5,
       __vue_create_injector__$2,
       undefined
     );
-
-  //
-  var script$3 = {
-      name: "Illust",
-      mixins: [Screen],
-  };
-
-  /* script */
-              const __vue_script__$3 = script$3;
-              
-  /* template */
-  var __vue_render__$3 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle)},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
-  var __vue_staticRenderFns__$3 = [];
-
-    /* style */
-    const __vue_inject_styles__$3 = undefined;
-    /* scoped */
-    const __vue_scope_id__$3 = "data-v-7285e8c9";
-    /* module identifier */
-    const __vue_module_identifier__$3 = undefined;
-    /* functional template */
-    const __vue_is_functional_template__$3 = false;
-    /* component normalizer */
-    function __vue_normalize__$3(
-      template, style, script,
-      scope, functional, moduleIdentifier,
-      createInjector, createInjectorSSR
-    ) {
-      const component = (typeof script === 'function' ? script.options : script) || {};
-
-      // For security concerns, we use only base name in production mode.
-      component.__file = "IllustScreen.vue";
-
-      if (!component.render) {
-        component.render = template.render;
-        component.staticRenderFns = template.staticRenderFns;
-        component._compiled = true;
-
-        if (functional) component.functional = true;
-      }
-
-      component._scopeId = scope;
-
-      return component
-    }
-    /* style inject */
-    function __vue_create_injector__$3() {
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$3.styles || (__vue_create_injector__$3.styles = {});
-      const isOldIE =
-        typeof navigator !== 'undefined' &&
-        /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-      return function addStyle(id, css) {
-        if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
-
-        const group = isOldIE ? css.media || 'default' : id;
-        const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-        if (!style.ids.includes(id)) {
-          let code = css.source;
-          let index = style.ids.length;
-
-          style.ids.push(id);
-
-          if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-              '\n/*# sourceMappingURL=data:application/json;base64,' +
-              btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-              ' */';
-          }
-
-          if (isOldIE) {
-            style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-          }
-
-          if (!style.element) {
-            const el = style.element = document.createElement('style');
-            el.type = 'text/css';
-
-            if (css.media) el.setAttribute('media', css.media);
-            if (isOldIE) {
-              el.setAttribute('data-group', group);
-              el.setAttribute('data-next-index', '0');
-            }
-
-            head.appendChild(el);
-          }
-
-          if (isOldIE) {
-            index = parseInt(style.element.getAttribute('data-next-index'));
-            style.element.setAttribute('data-next-index', index + 1);
-          }
-
-          if (style.element.styleSheet) {
-            style.parts.push(code);
-            style.element.styleSheet.cssText = style.parts
-              .filter(Boolean)
-              .join('\n');
-          } else {
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index]) style.element.removeChild(nodes[index]);
-            if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-            else style.element.appendChild(textNode);
-          }
-        }
-      }
-    }
-    /* style inject SSR */
-    
-
-    
-    var Illust = __vue_normalize__$3(
-      { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
-      __vue_inject_styles__$3,
-      __vue_script__$3,
-      __vue_scope_id__$3,
-      __vue_is_functional_template__$3,
-      __vue_module_identifier__$3,
-      __vue_create_injector__$3,
-      undefined
-    );
-
-  //
-
-
-  var script$4 = {
-      name: "Manga",
-      mixins: [Screen],
-      data() {
-          return {
-              width: 1000,
-              height: 1000,
-              scrollWidth:0,
-              active:false,
-          }
-      },
-      updated: {},
-      methods: {},
-      watch:{
-          scrollWidth:function () {
-              this.$refs.scrollable.scrollLeft=this.scrollWidth;
-          }
-      },
-      mounted() {
-          const store=this.$store;
-          this.$refs.wrapper.addEventListener('scroll',function(event) {
-              store.state.screen.dragging = true;
-              return false;
-          });
-      },
-      computed: {
-
-          ImageUrls: function () {
-              let imgElemArray = [];
-              const json = this.$store.state.pixivJson;
-              const firstPageURL = json.body.urls.regular.replace(/\/...x...\//, '/600x600/');
-              const pageNum = json.body.pageCount;
-              for (let i = 0; i < pageNum; i++) {
-                  const url = firstPageURL.replace('p0', 'p' + i);
-                  imgElemArray.push(url);
-              }
-              return imgElemArray;
-          },
-
-          getHeight: function () {
-              const store = this.$store;
-              const height = window.innerHeight * this.$store.state.screen.scale;
-              store.commit('screenHeight', height);
-              return height
-          },
-          getWidth: function () {
-              const store = this.$store;
-              const width = window.innerWidth * this.$store.state.screen.scale;
-              store.commit('screenWidth', width);
-              return width
-          },
-
-          getSize: function () {
-              this.height = window.innerHeight * this.$store.state.screen.scale;
-              this.width = window.innerWidth * this.$store.state.screen.scale;
-              this.$store.commit('screenWidth', this.width);
-              this.$store.commit('screenHeight', this.height);
-              return {width: this.width, height: this.height}
-          },
-
-          mangaStyle: function () {
-              const size = this.getSize;
-              return {
-                  border: '5px solid black',
-                  backgroundColor: '#111',
-                  position: 'relative',
-                  whiteSpace: 'nowrap',
-                  width: '100%',
-                  height: 'auto',
-                  maxWidth: `${size.width}px`,
-                  maxHeight: `${size.height + 17}px`,
-                  float: 'left',
-                  overflow: 'hidden',
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-              };
-          },
-          thumbStyle: function () {
-              return {
-                  left: `${this.scrollWidth}px`,
-              }
-          }
-      },
-  };
-
-  /* script */
-              const __vue_script__$4 = script$4;
-              
-  /* template */
-  var __vue_render__$4 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.mangaStyle),attrs:{"id":_vm.id}},[_c('div',{ref:"wrapper",staticClass:"scroll_wrapper"},[_c('div',{ref:"scrollable",attrs:{"id":"manga__main"}},_vm._l((_vm.ImageUrls),function(imgUrl){return _c('img',{key:_vm.number,style:(_vm.imgStyle),attrs:{"src":imgUrl}})}))])])};
-  var __vue_staticRenderFns__$4 = [];
-
-    /* style */
-    const __vue_inject_styles__$4 = function (inject) {
-      if (!inject) return
-      inject("data-v-536e20dd_0", { source: "\n.scroll_wrapper[data-v-536e20dd]{height:calc(100% - 17px);width:100%;overflow-x:scroll;-webkit-overflow-scrolling:touch\n}", map: undefined, media: undefined });
-
-    };
-    /* scoped */
-    const __vue_scope_id__$4 = "data-v-536e20dd";
-    /* module identifier */
-    const __vue_module_identifier__$4 = undefined;
-    /* functional template */
-    const __vue_is_functional_template__$4 = false;
-    /* component normalizer */
-    function __vue_normalize__$4(
-      template, style, script,
-      scope, functional, moduleIdentifier,
-      createInjector, createInjectorSSR
-    ) {
-      const component = (typeof script === 'function' ? script.options : script) || {};
-
-      // For security concerns, we use only base name in production mode.
-      component.__file = "MangaScreen.vue";
-
-      if (!component.render) {
-        component.render = template.render;
-        component.staticRenderFns = template.staticRenderFns;
-        component._compiled = true;
-
-        if (functional) component.functional = true;
-      }
-
-      component._scopeId = scope;
-
-      {
-        let hook;
-        if (style) {
-          hook = function(context) {
-            style.call(this, createInjector(context));
-          };
-        }
-
-        if (hook !== undefined) {
-          if (component.functional) {
-            // register for functional component in vue file
-            const originalRender = component.render;
-            component.render = function renderWithStyleInjection(h, context) {
-              hook.call(context);
-              return originalRender(h, context)
-            };
-          } else {
-            // inject component registration as beforeCreate hook
-            const existing = component.beforeCreate;
-            component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-          }
-        }
-      }
-
-      return component
-    }
-    /* style inject */
-    function __vue_create_injector__$4() {
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$4.styles || (__vue_create_injector__$4.styles = {});
-      const isOldIE =
-        typeof navigator !== 'undefined' &&
-        /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-      return function addStyle(id, css) {
-        if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
-
-        const group = isOldIE ? css.media || 'default' : id;
-        const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-        if (!style.ids.includes(id)) {
-          let code = css.source;
-          let index = style.ids.length;
-
-          style.ids.push(id);
-
-          if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-              '\n/*# sourceMappingURL=data:application/json;base64,' +
-              btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-              ' */';
-          }
-
-          if (isOldIE) {
-            style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-          }
-
-          if (!style.element) {
-            const el = style.element = document.createElement('style');
-            el.type = 'text/css';
-
-            if (css.media) el.setAttribute('media', css.media);
-            if (isOldIE) {
-              el.setAttribute('data-group', group);
-              el.setAttribute('data-next-index', '0');
-            }
-
-            head.appendChild(el);
-          }
-
-          if (isOldIE) {
-            index = parseInt(style.element.getAttribute('data-next-index'));
-            style.element.setAttribute('data-next-index', index + 1);
-          }
-
-          if (style.element.styleSheet) {
-            style.parts.push(code);
-            style.element.styleSheet.cssText = style.parts
-              .filter(Boolean)
-              .join('\n');
-          } else {
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index]) style.element.removeChild(nodes[index]);
-            if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-            else style.element.appendChild(textNode);
-          }
-        }
-      }
-    }
-    /* style inject SSR */
-    
-
-    
-    var Manga = __vue_normalize__$4(
-      { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
-      __vue_inject_styles__$4,
-      __vue_script__$4,
-      __vue_scope_id__$4,
-      __vue_is_functional_template__$4,
-      __vue_module_identifier__$4,
-      __vue_create_injector__$4,
-      undefined
-    );
-
-  class PixivJson {
-      constructor(json) {
-          Object.assign(this, json);
-      }
-  }
-
-
-  class Util {
-
-      onloadExecute(store, url) {
-
-          function changeIllustPageLayout() {
-              let figures = document.getElementsByTagName('figure');
-              let figcaptions = document.getElementsByTagName('figcaption');
-              if (figures.length === figcaptions.length) {
-                  for (let i = 0; i < figures.length; i++) {
-                      figures[i].parentNode.insertBefore(figcaptions[i], figures[i]);
-                  }
-              }
-          }
-
-          function changeAutherPageLayout() {
-              // TODO もっと良い方法
-              const h2Elems = document.getElementsByTagName('h2');
-              if (typeof h2Elems !== 'undefined') {
-                  for (const h2elem  of h2Elems) {
-                      if (h2elem.innerText.startsWith('イラスト') || h2elem.innerText.startsWith('作品')) {
-                          const illustElem = h2elem.parentElement.parentElement;
-                          const header = document.getElementsByTagName('header')[0];
-                          const parent = header.parentNode;
-                          parent.insertBefore(illustElem, header.nextSibling);
-                          break
-                      }
-                  }
-              }
-          }
-
-          if (store.state.enable.modifyIllustPage && ~url.indexOf('member_illust.php?mode=medium')) {
-              //if(store.state.enable.modifyIllustPage &&  url.match('https://www.pixiv.net/member_illust.php\?mode=medium?')) {
-              changeIllustPageLayout();
-          } else if (store.state.enable.modifyAutherPage) {
-              if (~url.indexOf('member.php?') || ~url.indexOf('member_illust.php?') || ~url.indexOf('bookmark.php?'))
-              // if(url.indexOf('member.php?') || url.match('https://www.pixiv.net/member_illust.php?')  || url.match('https://www.pixiv.net/bookmark.php?'))
-                  changeAutherPageLayout();
-          }
-      }
-
-      async getPixivJson(illustId) {
-          await fetch(`https://www.pixiv.net/ajax/illust/${illustId}`,
-              {
-                  method: 'GET',
-                  mode: 'cors',
-                  keepalive: true,
-              },
-          ).then(function (response) {
-              if (response.ok) {
-                  return response.json();
-              }
-          }).then(async function (json) {
-              return new PixivJson(json);
-          });
-
-      }
-
-      async getUgoiraJson(illustId) {
-          const url = `https://www.pixiv.net/ajax/illust/${illustId}/ugoira_meta`;
-          await fetch(url,
-              {
-                  method: 'GET',
-                  mode: 'cors',
-                  keepalive: true
-              }).then(function (response) {
-              if (response.ok) {
-                  return response.json();
-              }
-          }).then((json) => {
-              return new PixivJson(json)
-          });
-      }
-
-      async loadGmData(store) {
-          await GM.getValue("pixiv_viewutil_setting").then(jsonString => {
-              if (jsonString !== undefined) {
-                  const jsonData = JSON.parse(jsonString);
-                  store.commit('setAutherPageBool', (jsonData.changeIllustPageLayout == null) ? true : jsonData.changeIllustPageLayout);
-                  store.commit('setAutherPageBool', (jsonData.changeMemberPageLayout == null) ? true : jsonData.changeMemberPageLayout);
-                  store.commit('setPopupBool', (jsonData.usePopup == null) ? true : jsonData.usePopup);
-                  store.commit('setPopupScale', (jsonData.popupScale == null) ? 0.7 : jsonData.popupScale);
-              } else {
-                  store.commit('setAutherPageBool', true);
-                  store.commit('setAutherPageBool', true);
-                  store.commit('setPopupBool', true);
-                  store.commit('setPopupScale', 0.7);
-              }
-          });
-      }
-
-      saveGmData(obj) {
-          const jsonObj = JSON.stringify(obj);
-          console.log(JSON.stringify(obj));
-          GM.setValue("pixiv_viewutil_setting", jsonObj);
-      }
-  }
 
   let basicResponse = {
       body: {
@@ -1218,283 +1699,6 @@
 
   //
 
-  var script$5 = {
-      name: 'Ugoira',
-      props: {
-          id: 'popup-screen',
-          visible: false,
-      },
-      data() {
-          return {
-              isVisible: this.visible,
-              width: 600,
-              height: 600,
-          };
-      },
-
-      updated() {
-         // this.$store.commit('screenWidth', this.$el.clientWidth);
-         // this.$store.commit('screenHeight', this.$el.clientHeight);
-      },
-      watch: {
-          visible: function () {
-             // console.log(`visible?${ this.visible}`)
-              if (this.visible) {
-                  console.log("ugoira start!");
-                  this.getSize;
-                  this.$nextTick(function () {
-                      const screen = document.getElementById('popup-ugoira');
-                      if (screen) {
-                          screen.innerText = '';
-                          this.canvas = document.createElement('canvas');
-                          this.canvas.id = 'ugoira-canvas';
-                          this.canvas.style.pointerEvents='none';
-                          screen.appendChild(this.canvas);
-                      }
-
-                      const options = {
-                          canvas: this.canvas,
-                          metadata: this.$store.state.ugoiraJson.body,
-                          source: this.$store.state.ugoiraJson.body.src,
-                          mime_type: this.$store.state.ugoiraJson.body.mime_type,
-                          chunkSize: 10000,
-                          loop: true,
-                          autoStart: false,
-                          autosize: true,
-                      };
-                      //const canvas =this.$refs.canvasElm
-                      //this.player = new ZipImagePlayer(options);
-                      //this.player.play()
-                      this.player = new ZipImagePlayer(options);
-                      const player = this.player;
-                      const canvas = this.canvas;
-                      let width=this.width;
-                      let height=this.height;
-                      //
-
-
-                      let count = 0;
-                      const store = this.$store;
-                      const setLoop = setInterval( () =>{
-
-                          const images = player._frameImages;
-                          if (images && images.length > 0) {
-
-                              store.commit('screenWidth', images[0].width);
-                              store.commit('screenHeight', images[0].height);
-                              this.width=canvas.width;
-                              this.height=canvas.height;
-                              //console.log(`size modified ,canvas.size ${images[0].width} this.size${this.width}`)
-                              clearInterval(setLoop);
-                              player.play();
-                          }
-
-                          if (count > 100) {
-                              clearInterval(setLoop);
-                          }
-                          count++;
-                      }, 100);
-                  });
-              } else {
-                  if (this.player) {
-                      this.player.stop();
-                      //this.player=null
-                  }
-                  this.canvas = null;
-              }
-          }
-      },
-
-      computed: {
-          screenImg: function () {
-              return this.$store.state.pixivJson.body.urls.regular
-          },
-          getSize: function () {
-              const store = this.$store;
-              const imgWidth = this.$store.state.pixivJson.body.width;
-              const imgHeight = this.$store.state.pixivJson.body.height;
-              const wscale = (window.innerWidth * this.$store.state.screen.scale) / imgWidth;
-              const hscale = (window.innerHeight * this.$store.state.screen.scale) / imgHeight;
-              const scale = wscale < hscale ? wscale : hscale;
-              this.height = imgHeight * scale;
-              this.width = imgWidth * scale;
-              //const width=screenMax <imgWidth ? screenMax:imgWidth
-              this.$store.commit('screenWidth', this.width);
-              this.$store.commit('screenHeight', this.height);
-              //console.log(`with:${width},height:${height}`)
-              //return {width: width, height: height}
-          },
-          screenStyle: function () {
-             // const size = this.getSize;
-              return {
-                  border: '5px solid black',
-                  backgroundColor: '#111',
-                  position: 'relative',
-                  width: 'auto',
-                  height: 'auto',
-                  maxWidth: `${this.width}px`,
-                  maxHeight: `${this.height}px`,
-                  float: 'left',
-                  backgroundImage: `url(${this.screenImg})`,
-                  backgroundSize: 'contain',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-              };
-          },
-      },
-  };
-
-  /* script */
-              const __vue_script__$5 = script$5;
-              
-  /* template */
-  var __vue_render__$5 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{style:(_vm.screenStyle),attrs:{"id":"popup-ugoira"}},[_c('img',{style:(_vm.imgStyle),attrs:{"src":_vm.screenImg}})])};
-  var __vue_staticRenderFns__$5 = [];
-
-    /* style */
-    const __vue_inject_styles__$5 = function (inject) {
-      if (!inject) return
-      inject("data-v-2c5773e3_0", { source: "\n#ugoira-canvas[data-v-2c5773e3]{width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0\n}", map: undefined, media: undefined });
-
-    };
-    /* scoped */
-    const __vue_scope_id__$5 = "data-v-2c5773e3";
-    /* module identifier */
-    const __vue_module_identifier__$5 = undefined;
-    /* functional template */
-    const __vue_is_functional_template__$5 = false;
-    /* component normalizer */
-    function __vue_normalize__$5(
-      template, style, script,
-      scope, functional, moduleIdentifier,
-      createInjector, createInjectorSSR
-    ) {
-      const component = (typeof script === 'function' ? script.options : script) || {};
-
-      // For security concerns, we use only base name in production mode.
-      component.__file = "UgoiraScreen.vue";
-
-      if (!component.render) {
-        component.render = template.render;
-        component.staticRenderFns = template.staticRenderFns;
-        component._compiled = true;
-
-        if (functional) component.functional = true;
-      }
-
-      component._scopeId = scope;
-
-      {
-        let hook;
-        if (style) {
-          hook = function(context) {
-            style.call(this, createInjector(context));
-          };
-        }
-
-        if (hook !== undefined) {
-          if (component.functional) {
-            // register for functional component in vue file
-            const originalRender = component.render;
-            component.render = function renderWithStyleInjection(h, context) {
-              hook.call(context);
-              return originalRender(h, context)
-            };
-          } else {
-            // inject component registration as beforeCreate hook
-            const existing = component.beforeCreate;
-            component.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-          }
-        }
-      }
-
-      return component
-    }
-    /* style inject */
-    function __vue_create_injector__$5() {
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$5.styles || (__vue_create_injector__$5.styles = {});
-      const isOldIE =
-        typeof navigator !== 'undefined' &&
-        /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-      return function addStyle(id, css) {
-        if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
-
-        const group = isOldIE ? css.media || 'default' : id;
-        const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-        if (!style.ids.includes(id)) {
-          let code = css.source;
-          let index = style.ids.length;
-
-          style.ids.push(id);
-
-          if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-              '\n/*# sourceMappingURL=data:application/json;base64,' +
-              btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-              ' */';
-          }
-
-          if (isOldIE) {
-            style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-          }
-
-          if (!style.element) {
-            const el = style.element = document.createElement('style');
-            el.type = 'text/css';
-
-            if (css.media) el.setAttribute('media', css.media);
-            if (isOldIE) {
-              el.setAttribute('data-group', group);
-              el.setAttribute('data-next-index', '0');
-            }
-
-            head.appendChild(el);
-          }
-
-          if (isOldIE) {
-            index = parseInt(style.element.getAttribute('data-next-index'));
-            style.element.setAttribute('data-next-index', index + 1);
-          }
-
-          if (style.element.styleSheet) {
-            style.parts.push(code);
-            style.element.styleSheet.cssText = style.parts
-              .filter(Boolean)
-              .join('\n');
-          } else {
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index]) style.element.removeChild(nodes[index]);
-            if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-            else style.element.appendChild(textNode);
-          }
-        }
-      }
-    }
-    /* style inject SSR */
-    
-
-    
-    var Ugoira = __vue_normalize__$5(
-      { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
-      __vue_inject_styles__$5,
-      __vue_script__$5,
-      __vue_scope_id__$5,
-      __vue_is_functional_template__$5,
-      __vue_module_identifier__$5,
-      __vue_create_injector__$5,
-      undefined
-    );
-
-  //
-
   var script$6 = {
       name: "Comment",
       props: {
@@ -1502,22 +1706,21 @@
       },
       data() {
           return {
-              emoji: emoji
-          }
+              emoji: emoji,
+          };
       },
-      methods: {},
       computed: {
           isStamp() {
               if (this.commentElem.stampId !== null) {
-                  return true
+                  return true;
               }
               else return false;
           },
           hasReply() {
-              return this.commentElem.hasReplies
+              return this.commentElem.hasReplies;
           },
           getStampUrl() {
-              return `https://s.pximg.net/common/images/stamp/generated-stamps/${commentElem.stampId}_s.jpg?20180605`
+              return `https://s.pximg.net/common/images/stamp/generated-stamps/${commentElem.stampId}_s.jpg?20180605`;
           },
 
           replaceAll(str, beforeStr, afterStr) {
@@ -1529,13 +1732,13 @@
               const comment = this.commentElem.comment;
               if (comment.includes(')')) {
                   let replaceComment = comment;
-                  Object.keys(emoji).forEach(function (key) {
+                  Object.keys(emoji).forEach(function(key) {
                       const regexp = new RegExp(key, 'g');
                       replaceComment = replaceComment.replace(regexp, `<span style="width: 14px; height: 14px; display: inline-block; background-image: url('https://s.pximg.net/common/images/emoji/${emoji[key]}.png'); background-size: contain;"></span>`);
                   });
-                  return replaceComment
+                  return replaceComment;
               } else {
-                  return comment
+                  return comment;
               }
           },
           getName() {
@@ -1545,12 +1748,11 @@
               return this.commentElem.commentDate;
           },
 
-          getEmoji(comment) {
-          },
           commentInfo() {
-              return "hoge"
-          }
+              return "hoge";
+          },
       },
+      methods: {},
   };
 
   /* script */
@@ -1563,11 +1765,11 @@
     /* style */
     const __vue_inject_styles__$6 = function (inject) {
       if (!inject) return
-      inject("data-v-75327f15_0", { source: "\n.popup-comment[data-v-75327f15]{background:#eee;margin:5px;margin-right:15px\n}\nimg[data-v-75327f15]{width:48px;height:48px\n}\n.popup-ugoira-stamp[data-v-75327f15]{width:48px;height:48px;background-repeat:no-repeat;background-size:cover;border-radius:2px\n}\n.popup-comment-info[data-v-75327f15]{font-size:xx-small;text-align:left;color:#999\n}", map: undefined, media: undefined });
+      inject("data-v-a8c38ba4_0", { source: "\n.popup-comment[data-v-a8c38ba4]{background:#eee;margin:5px;margin-right:15px\n}\nimg[data-v-a8c38ba4]{width:48px;height:48px\n}\n.popup-ugoira-stamp[data-v-a8c38ba4]{width:48px;height:48px;background-repeat:no-repeat;background-size:cover;border-radius:2px\n}\n.popup-comment-info[data-v-a8c38ba4]{font-size:xx-small;text-align:left;color:#999\n}", map: undefined, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$6 = "data-v-75327f15";
+    const __vue_scope_id__$6 = "data-v-a8c38ba4";
     /* module identifier */
     const __vue_module_identifier__$6 = undefined;
     /* functional template */
@@ -1620,9 +1822,9 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$6() {
+    function __vue_create_injector__$3() {
       const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$6.styles || (__vue_create_injector__$6.styles = {});
+      const styles = __vue_create_injector__$3.styles || (__vue_create_injector__$3.styles = {});
       const isOldIE =
         typeof navigator !== 'undefined' &&
         /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
@@ -1698,11 +1900,12 @@
       __vue_scope_id__$6,
       __vue_is_functional_template__$6,
       __vue_module_identifier__$6,
-      __vue_create_injector__$6,
+      __vue_create_injector__$3,
       undefined
     );
 
   //
+
   var script$7 = {
       name: "CommentList",
       components: {
@@ -1718,59 +1921,57 @@
       data() {
           return {
               screen: document.getElementById('popup-screen'),
-              listHeight: 1000,
               comment: {
                   offset: 0,
                   max: 100,
                   hasNext: true,
-              }
-          }
-      },
-      methods:{
-          infiniteHandler($state) {
-          }
-      },
-      created:{
-      },
-      updated: function () {
-          this.$nextTick(function () {
-              this.listHeight=this.$store.state.screen.height;
-          });
-
+              },
+          };
       },
       computed: {
           commentArray() {
               const json = this.$store.state.commentJson;
-               return json.body.comments
+              return json.body.comments;
           },
-          commentListStyle: function () {
-              const top=this.$store.state.caption.isVisible ? this.$store.state.caption.height :0;
+          commentListStyle: function() {
+              const top = this.$store.state.caption.isVisible ? this.$store.state.caption.height : 0;
               return {
                   whiteSpace: 'pre-wrap',
                   zIndex: 10000,
-                  width:`120px`,
-                  height: `${this.$store.state.screen.height+10}px`,
-                  display:'inline-block',
+                  width: `120px`,
+                  height: `${this.$store.state.screen.height + 10}px`,
+                  display: 'inline-block',
                   overflowY: 'scroll',
                   backgroundColor: 'white',
                   border: '1px solid #000',
-                  position:'absolute',
-                  top:`${top}px`,
-                  left:`${this.$store.state.screen.width+10}px`,
-                  float:'right',
+                  position: 'absolute',
+                  top: `${top}px`,
+                  left: `${this.$store.state.screen.width + 10}px`,
+                  float: 'right',
               };
 
           },
-          offset:function(){
-              if (this.screen){
-                  const clientRect = this.screen.getBoundingClientRect() ;
+          offset: function() {
+              if (this.screen) {
+                  const clientRect = this.screen.getBoundingClientRect();
                   return {
-                      top:this.screen.style.top,
-                      left:clientRect.left+this.screen.clientWidth+ this.screen.clientWidth
-                  }
-              }else{
-                  return {top:0,left:0}
+                      top: this.screen.style.top,
+                      left: clientRect.left + this.screen.clientWidth + this.screen.clientWidth,
+                  };
+              } else {
+                  return { top: 0, left: 0 };
               }
+          },
+      },
+      created: {},
+      updated: function() {
+          this.$nextTick(function() {
+              this.listHeight = this.$store.state.screen.height;
+          });
+
+      },
+      methods: {
+          infiniteHandler($state) {
           },
       },
   };
@@ -1779,13 +1980,13 @@
               const __vue_script__$7 = script$7;
               
   /* template */
-  var __vue_render__$7 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{style:(_vm.commentListStyle),attrs:{"id":_vm.id}},_vm._l((_vm.commentArray),function(elem){return _c('Comment',{attrs:{"commentElem":elem}})}))};
+  var __vue_render__$7 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{style:(_vm.commentListStyle),attrs:{"id":_vm.id}},_vm._l((_vm.commentArray),function(elem){return _c('Comment',{attrs:{"comment-elem":elem}})}))};
   var __vue_staticRenderFns__$7 = [];
 
     /* style */
     const __vue_inject_styles__$7 = undefined;
     /* scoped */
-    const __vue_scope_id__$7 = "data-v-1b1ad8bb";
+    const __vue_scope_id__$7 = "data-v-068ba0e9";
     /* module identifier */
     const __vue_module_identifier__$7 = undefined;
     /* functional template */
@@ -1814,73 +2015,7 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$7() {
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$7.styles || (__vue_create_injector__$7.styles = {});
-      const isOldIE =
-        typeof navigator !== 'undefined' &&
-        /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-      return function addStyle(id, css) {
-        if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
-
-        const group = isOldIE ? css.media || 'default' : id;
-        const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-        if (!style.ids.includes(id)) {
-          let code = css.source;
-          let index = style.ids.length;
-
-          style.ids.push(id);
-
-          if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-              '\n/*# sourceMappingURL=data:application/json;base64,' +
-              btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-              ' */';
-          }
-
-          if (isOldIE) {
-            style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-          }
-
-          if (!style.element) {
-            const el = style.element = document.createElement('style');
-            el.type = 'text/css';
-
-            if (css.media) el.setAttribute('media', css.media);
-            if (isOldIE) {
-              el.setAttribute('data-group', group);
-              el.setAttribute('data-next-index', '0');
-            }
-
-            head.appendChild(el);
-          }
-
-          if (isOldIE) {
-            index = parseInt(style.element.getAttribute('data-next-index'));
-            style.element.setAttribute('data-next-index', index + 1);
-          }
-
-          if (style.element.styleSheet) {
-            style.parts.push(code);
-            style.element.styleSheet.cssText = style.parts
-              .filter(Boolean)
-              .join('\n');
-          } else {
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index]) style.element.removeChild(nodes[index]);
-            if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-            else style.element.appendChild(textNode);
-          }
-        }
-      }
-    }
+    
     /* style inject SSR */
     
 
@@ -1892,9 +2027,113 @@
       __vue_scope_id__$7,
       __vue_is_functional_template__$7,
       __vue_module_identifier__$7,
-      __vue_create_injector__$7,
+      undefined,
       undefined
     );
+
+  class PixivJson$1 {
+      constructor(json) {
+          Object.assign(this, json);
+      }
+  }
+
+
+  class Util {
+
+      onloadExecute(store, url) {
+
+          function changeIllustPageLayout() {
+              let figures = document.getElementsByTagName('figure');
+              let figcaptions = document.getElementsByTagName('figcaption');
+              if (figures.length === figcaptions.length) {
+                  for (let i = 0; i < figures.length; i++) {
+                      figures[i].parentNode.insertBefore(figcaptions[i], figures[i]);
+                  }
+              }
+          }
+
+          function changeAutherPageLayout() {
+              // TODO もっと良い方法
+              const h2Elems = document.getElementsByTagName('h2');
+              if (typeof h2Elems !== 'undefined') {
+                  for (const h2elem  of h2Elems) {
+                      if (h2elem.innerText.startsWith('イラスト') || h2elem.innerText.startsWith('作品')) {
+                          const illustElem = h2elem.parentElement.parentElement;
+                          const header = document.getElementsByTagName('header')[0];
+                          const parent = header.parentNode;
+                          parent.insertBefore(illustElem, header.nextSibling);
+                          break
+                      }
+                  }
+              }
+          }
+
+          if (store.state.enable.modifyIllustPage && ~url.indexOf('member_illust.php?mode=medium')) {
+              //if(store.state.enable.modifyIllustPage &&  url.match('https://www.pixiv.net/member_illust.php\?mode=medium?')) {
+              changeIllustPageLayout();
+          } else if (store.state.enable.modifyAutherPage) {
+              if (~url.indexOf('member.php?') || ~url.indexOf('member_illust.php?') || ~url.indexOf('bookmark.php?'))
+              // if(url.indexOf('member.php?') || url.match('https://www.pixiv.net/member_illust.php?')  || url.match('https://www.pixiv.net/bookmark.php?'))
+                  changeAutherPageLayout();
+          }
+      }
+
+      async getPixivJson(illustId) {
+          await fetch(`https://www.pixiv.net/ajax/illust/${illustId}`,
+              {
+                  method: 'GET',
+                  mode: 'cors',
+                  keepalive: true,
+              },
+          ).then(function (response) {
+              if (response.ok) {
+                  return response.json();
+              }
+          }).then(async function (json) {
+              return new PixivJson$1(json);
+          });
+
+      }
+
+      async getUgoiraJson(illustId) {
+          const url = `https://www.pixiv.net/ajax/illust/${illustId}/ugoira_meta`;
+          await fetch(url,
+              {
+                  method: 'GET',
+                  mode: 'cors',
+                  keepalive: true
+              }).then(function (response) {
+              if (response.ok) {
+                  return response.json();
+              }
+          }).then((json) => {
+              return new PixivJson$1(json)
+          });
+      }
+
+      async loadGmData(store) {
+          await GM.getValue("pixiv_viewutil_setting").then(jsonString => {
+              if (jsonString !== undefined) {
+                  const jsonData = JSON.parse(jsonString);
+                  store.commit('setAutherPageBool', (jsonData.changeIllustPageLayout == null) ? true : jsonData.changeIllustPageLayout);
+                  store.commit('setAutherPageBool', (jsonData.changeMemberPageLayout == null) ? true : jsonData.changeMemberPageLayout);
+                  store.commit('setPopupBool', (jsonData.usePopup == null) ? true : jsonData.usePopup);
+                  store.commit('setPopupScale', (jsonData.popupScale == null) ? 0.7 : jsonData.popupScale);
+              } else {
+                  store.commit('setAutherPageBool', true);
+                  store.commit('setAutherPageBool', true);
+                  store.commit('setPopupBool', true);
+                  store.commit('setPopupScale', 0.7);
+              }
+          });
+      }
+
+      saveGmData(obj) {
+          const jsonObj = JSON.stringify(obj);
+          console.log(JSON.stringify(obj));
+          GM.setValue("pixiv_viewutil_setting", jsonObj);
+      }
+  }
 
   //
   var script$8 = {
@@ -2079,9 +2318,9 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$8() {
+    function __vue_create_injector__$4() {
       const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$8.styles || (__vue_create_injector__$8.styles = {});
+      const styles = __vue_create_injector__$4.styles || (__vue_create_injector__$4.styles = {});
       const isOldIE =
         typeof navigator !== 'undefined' &&
         /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
@@ -2157,7 +2396,7 @@
       __vue_scope_id__$8,
       __vue_is_functional_template__$8,
       __vue_module_identifier__$8,
-      __vue_create_injector__$8,
+      __vue_create_injector__$4,
       undefined
     );
 
@@ -2243,73 +2482,7 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$9() {
-      const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$9.styles || (__vue_create_injector__$9.styles = {});
-      const isOldIE =
-        typeof navigator !== 'undefined' &&
-        /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
-      return function addStyle(id, css) {
-        if (document.querySelector('style[data-vue-ssr-id~="' + id + '"]')) return // SSR styles are present.
-
-        const group = isOldIE ? css.media || 'default' : id;
-        const style = styles[group] || (styles[group] = { ids: [], parts: [], element: undefined });
-
-        if (!style.ids.includes(id)) {
-          let code = css.source;
-          let index = style.ids.length;
-
-          style.ids.push(id);
-
-          if (css.map) {
-            // https://developer.chrome.com/devtools/docs/javascript-debugging
-            // this makes source maps inside style tags work properly in Chrome
-            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
-            // http://stackoverflow.com/a/26603875
-            code +=
-              '\n/*# sourceMappingURL=data:application/json;base64,' +
-              btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
-              ' */';
-          }
-
-          if (isOldIE) {
-            style.element = style.element || document.querySelector('style[data-group=' + group + ']');
-          }
-
-          if (!style.element) {
-            const el = style.element = document.createElement('style');
-            el.type = 'text/css';
-
-            if (css.media) el.setAttribute('media', css.media);
-            if (isOldIE) {
-              el.setAttribute('data-group', group);
-              el.setAttribute('data-next-index', '0');
-            }
-
-            head.appendChild(el);
-          }
-
-          if (isOldIE) {
-            index = parseInt(style.element.getAttribute('data-next-index'));
-            style.element.setAttribute('data-next-index', index + 1);
-          }
-
-          if (style.element.styleSheet) {
-            style.parts.push(code);
-            style.element.styleSheet.cssText = style.parts
-              .filter(Boolean)
-              .join('\n');
-          } else {
-            const textNode = document.createTextNode(code);
-            const nodes = style.element.childNodes;
-            if (nodes[index]) style.element.removeChild(nodes[index]);
-            if (nodes.length) style.element.insertBefore(textNode, nodes[index]);
-            else style.element.appendChild(textNode);
-          }
-        }
-      }
-    }
+    
     /* style inject SSR */
     
 
@@ -2321,7 +2494,7 @@
       __vue_scope_id__$9,
       __vue_is_functional_template__$9,
       __vue_module_identifier__$9,
-      __vue_create_injector__$9,
+      undefined,
       undefined
     );
 
@@ -2480,9 +2653,9 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$a() {
+    function __vue_create_injector__$5() {
       const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$a.styles || (__vue_create_injector__$a.styles = {});
+      const styles = __vue_create_injector__$5.styles || (__vue_create_injector__$5.styles = {});
       const isOldIE =
         typeof navigator !== 'undefined' &&
         /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
@@ -2558,7 +2731,7 @@
       __vue_scope_id__$a,
       __vue_is_functional_template__$a,
       __vue_module_identifier__$a,
-      __vue_create_injector__$a,
+      __vue_create_injector__$5,
       undefined
     );
 
@@ -2668,9 +2841,9 @@
       return component
     }
     /* style inject */
-    function __vue_create_injector__$b() {
+    function __vue_create_injector__$6() {
       const head = document.head || document.getElementsByTagName('head')[0];
-      const styles = __vue_create_injector__$b.styles || (__vue_create_injector__$b.styles = {});
+      const styles = __vue_create_injector__$6.styles || (__vue_create_injector__$6.styles = {});
       const isOldIE =
         typeof navigator !== 'undefined' &&
         /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
@@ -2746,7 +2919,7 @@
       __vue_scope_id__$b,
       __vue_is_functional_template__$b,
       __vue_module_identifier__$b,
-      __vue_create_injector__$b,
+      __vue_create_injector__$6,
       undefined
     );
 
@@ -2771,21 +2944,21 @@
       illustID: 0,
       isUgoira: false,
 
-      enable:{
+      enable: {
           modifyIllustPage: true,
           modifyAutherPage: true,
           pupupScreen: true,
       },
       screen: {
           id: 'popup-outer-container',
-          elem: {clientWidth: 1000, clientHeight: 1000},
+          elem: { clientWidth: 600, clientHeight: 600 },
           isVisible: false,
           isLoaded: false,
           top: '50%',
           left: '50%',
           scale: 0.8,
-          width: window.innerWidth,
-          height: window.innerHeight,
+          width: 600,
+          height: 600,
           transform: 'translate(-50%,-70%)',
           dragging: false,
       },
@@ -2827,7 +3000,7 @@
                       mode: 'cors',
                       keepalive: true,
                   },
-              ).then(function (response) {
+              ).then(function(response) {
                   if (response.ok) {
                       return response.json();
                   }
@@ -2841,8 +3014,8 @@
                       {
                           method: 'GET',
                           mode: 'cors',
-                          keepalive: true
-                      }).then(function (response) {
+                          keepalive: true,
+                      }).then(function(response) {
                       if (response.ok) {
                           return response.json();
                       }
@@ -2851,14 +3024,15 @@
                   });
               }
 
+
               if (state.isUgoira) {
                   const url = `https://www.pixiv.net/ajax/illust/${id}/ugoira_meta`;
                   state.preload.ugoiraJson = await fetch(url,
                       {
                           method: 'GET',
                           mode: 'cors',
-                          keepalive: true
-                      }).then(function (response) {
+                          keepalive: true,
+                      }).then(function(response) {
                       if (response.ok) {
                           return response.json();
                       }
@@ -2874,14 +3048,17 @@
           }
           ,
           screenTop() {
-              return state.screen.top
+              return state.screen.top;
           }
           ,
           screenHeight(state, sHeight) {
               state.screen.height = sHeight;
+              state.comment.height = sHeight + 10;
+
           },
           screenWidth(state, sWidth) {
-              state.screen.width = Math.floor(sWidth);
+              state.screen.width = sWidth;
+              state.caption.width = sWidth + 10;
           },
           captionHeight(state, height) {
               state.caption.height = height;
@@ -2927,12 +3104,12 @@
           setPopupScale(state, value) {
               state.screen.scale = value;
           },
-          toggleCaption(state){
-            state.caption.isVisible = !state.caption.isVisible;
+          toggleCaption(state) {
+              state.caption.isVisible = !state.caption.isVisible;
           },
-      toggleComment(state){
-          state.comment.isVisible = !state.comment.isVisible;
-      }
+          toggleComment(state) {
+              state.comment.isVisible = !state.comment.isVisible;
+          },
       }
   ;
 

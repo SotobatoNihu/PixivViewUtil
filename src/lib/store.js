@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import {basicResponse, commentResponse, ugoiraResponse} from './jsonInterface';
+import { basicResponse, commentResponse, ugoiraResponse } from './jsonInterface';
 import Util from './util';
 
 Vue.use(Vuex);
@@ -25,21 +25,21 @@ const state = {
     illustID: 0,
     isUgoira: false,
 
-    enable:{
+    enable: {
         modifyIllustPage: true,
         modifyAutherPage: true,
         pupupScreen: true,
     },
     screen: {
         id: 'popup-outer-container',
-        elem: {clientWidth: 1000, clientHeight: 1000},
+        elem: { clientWidth: 600, clientHeight: 600 },
         isVisible: false,
         isLoaded: false,
         top: '50%',
         left: '50%',
         scale: 0.8,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: 600,
+        height: 600,
         transform: 'translate(-50%,-70%)',
         dragging: false,
     },
@@ -81,7 +81,7 @@ const mutations = {
                     mode: 'cors',
                     keepalive: true,
                 },
-            ).then(function (response) {
+            ).then(function(response) {
                 if (response.ok) {
                     return response.json();
                 }
@@ -90,36 +90,36 @@ const mutations = {
             });
 
             if (state.comment.isVisible) {
-                const url = `https://www.pixiv.net/ajax/illusts/comments/roots?illust_id=${id}&offset=${0}&limit=${100}`
+                const url = `https://www.pixiv.net/ajax/illusts/comments/roots?illust_id=${id}&offset=${0}&limit=${100}`;
                 state.preload.commentJson = await fetch(url,
                     {
                         method: 'GET',
                         mode: 'cors',
-                        keepalive: true
-                    }).then(function (response) {
+                        keepalive: true,
+                    }).then(function(response) {
                     if (response.ok) {
                         return response.json();
                     }
                 }).then((json) => {
                     return new PixivJson(json);
-                })
+                });
             }
-            ;
+
 
             if (state.isUgoira) {
-                const url = `https://www.pixiv.net/ajax/illust/${id}/ugoira_meta`
+                const url = `https://www.pixiv.net/ajax/illust/${id}/ugoira_meta`;
                 state.preload.ugoiraJson = await fetch(url,
                     {
                         method: 'GET',
                         mode: 'cors',
-                        keepalive: true
-                    }).then(function (response) {
+                        keepalive: true,
+                    }).then(function(response) {
                     if (response.ok) {
                         return response.json();
                     }
                 }).then((json) => {
                     return new PixivJson(json);
-                })
+                });
             }
         },
 
@@ -129,14 +129,17 @@ const mutations = {
         }
         ,
         screenTop() {
-            return state.screen.top
+            return state.screen.top;
         }
         ,
         screenHeight(state, sHeight) {
             state.screen.height = sHeight;
+            state.comment.height = sHeight + 10;
+
         },
         screenWidth(state, sWidth) {
-            state.screen.width = Math.floor(sWidth);
+            state.screen.width = sWidth;
+            state.caption.width = sWidth + 10;
         },
         captionHeight(state, height) {
             state.caption.height = height;
@@ -182,12 +185,12 @@ const mutations = {
         setPopupScale(state, value) {
             state.screen.scale = value;
         },
-        toggleCaption(state){
-          state.caption.isVisible = !state.caption.isVisible
+        toggleCaption(state) {
+            state.caption.isVisible = !state.caption.isVisible;
         },
-    toggleComment(state){
-        state.comment.isVisible = !state.comment.isVisible
-    }
+        toggleComment(state) {
+            state.comment.isVisible = !state.comment.isVisible;
+        },
     }
 ;
 
