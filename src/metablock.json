@@ -8,7 +8,7 @@
     "en": "this is  some  utility funcitions for pixiv.(1)change the layout of illust pages and auther's pages. (2)add popup tool."
   },
   "author": "sotoba",
-  "namespace": "PixivViewUtil",
+  "namespace": "Pixiv View Util",
   "match": [
     "https://www.pixiv.net/bookmark_new_illust.php*",
     "https://www.pixiv.net/discovery*",
@@ -21,14 +21,12 @@
     "https://www.pixiv.net/search.php*",
     "https://www.pixiv.net/*"
   ],
-  "version": "2.0.0-20181203",
   "homepageURL": "https://github.com/SotobatoNihu/PixivViewUtil",
   "license": "The MIT License",
   "require": [
     "https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js",
     "https://cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.1.0/vue-i18n.min.js",
-    "https://www.gitcdn.xyz/repo/FlandreDaisuki/zip_player/ecf3751317079fcabef70af4bd0e92411288303d/dist/zip_player.iife.min.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.1.0/vue-i18n.min.js"
   ],
   "grant": [
     "GM_getValue",

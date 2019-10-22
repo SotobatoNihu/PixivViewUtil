@@ -15,7 +15,7 @@
 // @match          https://www.pixiv.net/bookmark.php*
 // @match          https://www.pixiv.net/search.php*
 // @match          https://www.pixiv.net/*
-// @version        2.0.0-20181203
+// @version        2.2.1-20181207
 // @homepageURL    https://github.com/SotobatoNihu/PixivViewUtil
 // @license        The MIT License
 // @require        https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js
@@ -3148,7 +3148,7 @@
    */
   Vue.directive('draggable', {
       store: store,
-      bind: function (el) {
+      bind: function(el) {
           el.style.position = 'absolute';
           let startX, startY, initialMouseX, initialMouseY;
 
@@ -3157,7 +3157,9 @@
               var dy = e.clientY - initialMouseY;
               el.style.top = startY + dy + 'px';
               el.style.left = startX + dx + 'px';
-              store.state.screen.dragging = true;
+              if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                  store.state.screen.dragging = true;
+              }
               return false;
           }
 
@@ -3169,10 +3171,11 @@
               } else {
                   store.state.screen.isVisible = false;
               }
+              store.state.screen.dragging = false;
               return false;
           }
 
-          el.addEventListener('mousedown', function (e) {
+          el.addEventListener('mousedown', function(e) {
               startX = el.offsetLeft;
               startY = el.offsetTop;
               initialMouseX = e.clientX;
@@ -3215,12 +3218,12 @@
            * 設定画面のVueを作成
            */
           /* eslint-disable no-new */
-          const cog = new Vue({
+          new Vue({
               store: store,
               el: `#popup-cog`,
               components: {
                   Cog,
-                  modal
+                  modal,
               },
               template: '<Cog/>',
           });
@@ -3236,7 +3239,7 @@
            */
           /* eslint-disable no-new */
 
-          const app = new Vue({
+          new Vue({
               store: store,
               el: `#popup-outer-container`,
               components: {

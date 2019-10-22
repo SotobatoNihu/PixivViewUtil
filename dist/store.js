@@ -3099,7 +3099,7 @@ Vue.config.productionTip = true;
  */
 Vue.directive('draggable', {
     store: store,
-    bind: function (el) {
+    bind: function(el) {
         el.style.position = 'absolute';
         let startX, startY, initialMouseX, initialMouseY;
 
@@ -3108,7 +3108,9 @@ Vue.directive('draggable', {
             var dy = e.clientY - initialMouseY;
             el.style.top = startY + dy + 'px';
             el.style.left = startX + dx + 'px';
-            store.state.screen.dragging = true;
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                store.state.screen.dragging = true;
+            }
             return false;
         }
 
@@ -3120,10 +3122,11 @@ Vue.directive('draggable', {
             } else {
                 store.state.screen.isVisible = false;
             }
+            store.state.screen.dragging = false;
             return false;
         }
 
-        el.addEventListener('mousedown', function (e) {
+        el.addEventListener('mousedown', function(e) {
             startX = el.offsetLeft;
             startY = el.offsetTop;
             initialMouseX = e.clientX;
@@ -3166,12 +3169,12 @@ window.onload = () => {
          * 設定画面のVueを作成
          */
         /* eslint-disable no-new */
-        const cog = new Vue({
+        new Vue({
             store: store,
             el: `#popup-cog`,
             components: {
                 Cog,
-                modal
+                modal,
             },
             template: '<Cog/>',
         });
@@ -3187,7 +3190,7 @@ window.onload = () => {
          */
         /* eslint-disable no-new */
 
-        const app = new Vue({
+        new Vue({
             store: store,
             el: `#popup-outer-container`,
             components: {

@@ -2,8 +2,8 @@ import Vue from 'vue';
 import App from './components/App.vue';
 import Cog from './components/Cog.vue';
 import modal from './components/Modal.vue';
-import Util from './lib/util'
-import {store} from './lib/store'
+import Util from './lib/util';
+import { store } from './lib/store';
 
 
 /*
@@ -20,7 +20,7 @@ TODO
  * @type {Util}
  */
 const util = new Util();
-util.loadGmData(store)
+util.loadGmData(store);
 
 Vue.config.productionTip = true;
 /**
@@ -28,7 +28,7 @@ Vue.config.productionTip = true;
  */
 Vue.directive('draggable', {
     store: store,
-    bind: function (el) {
+    bind: function(el) {
         el.style.position = 'absolute';
         let startX, startY, initialMouseX, initialMouseY;
 
@@ -37,7 +37,9 @@ Vue.directive('draggable', {
             var dy = e.clientY - initialMouseY;
             el.style.top = startY + dy + 'px';
             el.style.left = startX + dx + 'px';
-            store.state.screen.dragging = true;
+            if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
+                store.state.screen.dragging = true;
+            }
             return false;
         }
 
@@ -49,10 +51,11 @@ Vue.directive('draggable', {
             } else {
                 store.state.screen.isVisible = false;
             }
+            store.state.screen.dragging = false;
             return false;
         }
 
-        el.addEventListener('mousedown', function (e) {
+        el.addEventListener('mousedown', function(e) {
             startX = el.offsetLeft;
             startY = el.offsetTop;
             initialMouseX = e.clientX;
@@ -63,7 +66,7 @@ Vue.directive('draggable', {
             return false;
         });
     },
-})
+});
 
 
 window.onload = () => {
@@ -71,36 +74,36 @@ window.onload = () => {
     //レイアウトを変更
     util.onloadExecute(store, document.URL);
 
-    const links = document.getElementsByTagName('a')
+    const links = document.getElementsByTagName('a');
     for (const link of links) {
         link.addEventListener('click', () => {
             util.onloadExecute(store, document.URL);
-        })
+        });
     }
 
 
     /**
      * 設定画面用のli要素を追加
      */
-    const cogID = 'popup-cog'
-    const notification = document.getElementsByClassName('notifications')
+    const cogID = 'popup-cog';
+    const notification = document.getElementsByClassName('notifications');
     if (notification !== null && notification.length > 0 && document.getElementById('cogID') === null) {
-        const _li = document.createElement('li')
+        const _li = document.createElement('li');
         const div = document.createElement('div');
-        div.id = cogID
-        notification[0].appendChild(_li)
-        _li.appendChild(div)
+        div.id = cogID;
+        notification[0].appendChild(_li);
+        _li.appendChild(div);
 
         /**
          * 設定画面のVueを作成
          */
         /* eslint-disable no-new */
-        const cog = new Vue({
+        new Vue({
             store: store,
             el: `#popup-cog`,
             components: {
                 Cog,
-                modal
+                modal,
             },
             template: '<Cog/>',
         });
@@ -116,7 +119,7 @@ window.onload = () => {
          */
         /* eslint-disable no-new */
 
-        const app = new Vue({
+        new Vue({
             store: store,
             el: `#popup-outer-container`,
             components: {
@@ -126,4 +129,4 @@ window.onload = () => {
         });
 
     }
-}
+};

@@ -1,6 +1,6 @@
 {
   "name": "PixivViewUtil",
-  "version": "2.0.0-20181203",
+  "version": "2.2.1-20181207",
   "description": "this is  some  utility funcitions for pixiv.",
   "author": "SotobatoNihu",
   "main": "main.js",
